@@ -8,5 +8,5 @@ export const environment = {
     storageBucket: 'hospital-aves.appspot.com',
     messagingSenderId: '255211915219'
   },
-  raw: 'http://localhost:8080/'
+  raw: 'https://sokiller.herokuapp.com/'
 };
