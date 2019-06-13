@@ -1,0 +1,42 @@
+.shirt_container {
+  display: flex;
+  width: 450px;
+  justify-content: space-between;
+  .shirt {
+    position: relative;
+    .shirt_title {
+      font-size: 14px;
+      font-weight: bolder;
+      text-align: center;
+      margin-bottom: 10px;
+    }
+    .inputfile {
+      width: 0.1px;
+      height: 0.1px;
+      opacity: 0;
+      overflow: hidden;
+      position: absolute;
+      z-index: -1;
+    }
+    .shirt_img {
+      width: 214px;
+      height: 190px;
+      background-color: rgba(218, 218, 218, 0.2);
+      display: block;
+      padding: 20px;
+    }
+    .thumb_container {
+      width: 200px;
+      height: 200px;
+      position: absolute;
+      top: 0;
+      left: 0;
+      .thumb {
+        position: absolute;
+        width: 69px;
+        left: 72px;
+        top: 85px;
+      }
+    }
+  }
+}

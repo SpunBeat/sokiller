@@ -1,0 +1,6 @@
+<div fxLayout="column">
+    <mat-checkbox [checked]="day.checked" *ngFor="let day of days"
+    (click)="checkboxWeekday(day)">
+    {{day.name}}
+  </mat-checkbox>
+</div>

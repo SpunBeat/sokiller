@@ -1,0 +1,21 @@
+mat-dialog-container {
+  height: 400px!important;
+}
+
+.mini_bloques {
+  display: flex;
+  width: 210px;
+  justify-content: space-evenly;
+  .mini_bloque {
+    width: 100px;
+    height: 35px;
+    background: #373737;
+    text-align: center;
+    margin: 2px;
+    padding: 3px;
+  }
+}
+
+.mini_bloque_title {
+  font-size: 8px;
+}

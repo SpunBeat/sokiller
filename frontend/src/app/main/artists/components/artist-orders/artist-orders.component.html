@@ -1,0 +1,140 @@
+<div class="p-16 super_container" fxFlex="0 0 auto" fxLayout="row wrap" fxLayoutAlign="top center" [@animateStagger]="{value:'50'}">
+
+  <mat-card class="mr-24 tables" fxLayout="column" fxLayoutAlign="center center" [@animate]="{value:'*',params:{y:'100%'}}">
+    <mat-tab-group>
+      <!-- PENDIENTES -->
+      <mat-tab label="Pendientes">
+        <mat-table class="orders-table" #table [dataSource]="dataSource" [@animateStagger]="{value:'50'}" fusePerfectScrollbar>
+          <ng-container matColumnDef="product">
+            <mat-header-cell *matHeaderCellDef> Producto </mat-header-cell>
+            <mat-cell *matCellDef="let element">
+              <p class="text-truncate">{{element.name}}</p>
+            </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="soldUnits">
+            <mat-header-cell *matHeaderCellDef> Unidades vendidas </mat-header-cell>
+            <mat-cell *matCellDef="let element">
+              <p class="text-truncate">{{element.soldUnits}}</p>
+            </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="earnings">
+            <mat-header-cell *matHeaderCellDef> Ganancia </mat-header-cell>
+            <mat-cell *matCellDef="let element">
+              <p class="text-truncate">{{element.earnings}}</p>
+            </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="selected">
+            <mat-header-cell *matHeaderCellDef> </mat-header-cell>
+            <mat-cell *matCellDef="let element">
+              <mat-checkbox (change)="changeFactura($event, element.earnings)"></mat-checkbox>
+            </mat-cell>
+          </ng-container>
+          <mat-header-row *matHeaderRowDef="displayedColumns; sticky:true"></mat-header-row>
+          <mat-row *matRowDef="let order; columns: displayedColumns;" class="order"></mat-row>
+        </mat-table>
+      </mat-tab>
+      <!-- PROCESO DE PAGO -->
+      <mat-tab label="En proceso de pago">
+        <mat-table class="orders-table" #table [dataSource]="paymentProcessSource" [@animateStagger]="{value:'50'}" fusePerfectScrollbar>
+          <ng-container matColumnDef="product">
+            <mat-header-cell *matHeaderCellDef> Producto </mat-header-cell>
+            <mat-cell *matCellDef="let element">
+              <p class="text-truncate">{{element.name}}</p>
+            </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="soldUnits">
+            <mat-header-cell *matHeaderCellDef> Unidades vendidas </mat-header-cell>
+            <mat-cell *matCellDef="let element">
+              <p class="text-truncate">{{element.soldUnits}}</p>
+            </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="earnings">
+            <mat-header-cell *matHeaderCellDef> Ganancia </mat-header-cell>
+            <mat-cell *matCellDef="let element">
+              <p class="text-truncate">{{element.earnings}}</p>
+            </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="paymentCreated">
+            <mat-header-cell *matHeaderCellDef> Fecha de petición </mat-header-cell>
+            <mat-cell *matCellDef="let element">
+              <p class="text-truncate">{{element.paymentCreated | date }}</p>
+            </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="paymentDate">
+            <mat-header-cell *matHeaderCellDef> Fecha de programada de pago </mat-header-cell>
+            <mat-cell *matCellDef="let element">
+              <p class="text-truncate">{{element.paymentDate | date }}</p>
+            </mat-cell>
+          </ng-container>
+          <mat-header-row *matHeaderRowDef="displayedColumnsPaymentProcess; sticky:true"></mat-header-row>
+          <mat-row *matRowDef="let order; columns: displayedColumnsPaymentProcess;" class="order"></mat-row>
+        </mat-table>
+      </mat-tab>
+      <!-- PAGADAS -->
+      <mat-tab label="Pagadas">
+        <mat-table class="orders-table" #table [dataSource]="paidOutSource" [@animateStagger]="{value:'50'}" fusePerfectScrollbar>
+          <ng-container matColumnDef="product">
+            <mat-header-cell *matHeaderCellDef> Producto </mat-header-cell>
+            <mat-cell *matCellDef="let element">
+              <p class="text-truncate">{{element.name}}</p>
+            </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="soldUnits">
+            <mat-header-cell *matHeaderCellDef> Unidades vendidas </mat-header-cell>
+            <mat-cell *matCellDef="let element">
+              <p class="text-truncate">{{element.soldUnits}}</p>
+            </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="earnings">
+            <mat-header-cell *matHeaderCellDef> Ganancia </mat-header-cell>
+            <mat-cell *matCellDef="let element">
+              <p class="text-truncate">{{element.earnings}}</p>
+            </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="paymentDate">
+            <mat-header-cell *matHeaderCellDef> Fecha de pago </mat-header-cell>
+            <mat-cell *matCellDef="let element">
+              <p class="text-truncate">{{element.paymentDate | date }}</p>
+            </mat-cell>
+          </ng-container>
+          <mat-header-row *matHeaderRowDef="displayedColumnsPaidOut; sticky:true"></mat-header-row>
+          <mat-row *matRowDef="let order; columns: displayedColumnsPaidOut;" class="order"></mat-row>
+        </mat-table>
+      </mat-tab>
+    </mat-tab-group>
+  </mat-card>
+
+  <mat-card fxLayout="column" fxLayoutAlign="center center" [@animate]="{value:'*',params:{y:'100%'}}">
+    <mat-card-subtitle>Total Solicitado</mat-card-subtitle>
+    <mat-card-content>
+      <form>
+        <h2 class="factura_amount">{{factura | currency}}</h2>
+        <div>Tu factura o recibo debe llenarse así:</div>
+        <div class="gray_label">Servicio: 1 servicio de diseño gráfico</div>
+        <div class="desglose_ventas">
+          <div class="desglose_concept">
+            <div class="gray_label">Subtotal</div>
+            <div>{{subtotal | currency}}</div>
+          </div>
+          <div class="desglose_concept">
+            <div class="gray_label">IVA</div>
+            <div>{{iva | currency}}</div>
+          </div>
+          <div class="desglose_concept">
+            <div class="gray_label">Total</div>
+            <div>{{factura | currency}}</div>
+          </div>
+        </div>
+        <ng-container *ngIf="factura > 0">
+          <div class="gray_label">Carga el archivo XML de su factura o recibo</div>
+          <div class="xml_container">
+            <label for="mojo" class="xml_loader">XML</label>
+            <input (change)="loadFile($event)" type="file" id="mojo" accept="text/xml"/>
+            <button [disabled]="!file" class="mat-raised-button mat-accent">Validar factura</button>
+          </div>
+        </ng-container>
+      </form>
+    </mat-card-content>
+  </mat-card>
+
+</div>

@@ -1,0 +1,70 @@
+<form class="product_form" [formGroup]="productFormGroup">
+  <mat-horizontal-stepper #stepper>
+    <mat-step>
+      <ng-template matStepLabel>Datos producto</ng-template>
+      <div class="step_container">
+        <div class="step_body">
+          <mat-form-field appearance="outline">
+            <mat-label>Nombre</mat-label>
+            <input matInput placeholder="Nombre* - ejemplo: RUN " formControlName="name" required>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Tipo de producto</mat-label>
+            <mat-select formControlName="type">
+              <mat-option *ngFor="let productType of productTypes" [value]="productType.value">
+                {{productType.name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <button [disabled]="productFormGroup.get('name').invalid || productFormGroup.get('type').invalid" class="next_button" color="accent" mat-raised-button matStepperNext>Siguiente</button>
+      </div>
+    </mat-step>
+    <mat-step>
+      <ng-template matStepLabel>Cargar imágenes</ng-template>
+      <div class="step_container">
+        <div class="step_body">
+          <app-shirt-img [front]="images.front" [back]="images.back" (filechange)="onFileChange($event)"></app-shirt-img>
+        </div>
+        <button class="next_button" color="accent" mat-raised-button matStepperNext>Siguiente</button>
+      </div>
+    </mat-step>
+    <mat-step>
+      <ng-template matStepLabel>Definir precio</ng-template>
+      <div class="step_container">
+        <div class="step_body">
+          <div class="step_text_container">
+            <div class="step_text_label">Impresión:</div>
+            <div class="step_text_price">{{printPrice | currency}}</div>
+          </div>
+          <div class="step_text_container special">
+            <div class="step_text_label bold">Tu ganancia:</div>
+            <input class="step_text_price" formControlName="earning" />
+          </div>
+          <div class="step_text_container">
+            <div class="step_text_label">Subtotal:</div>
+            <div class="step_text_price">{{subtotal | currency}}</div>
+          </div>
+          <div class="step_text_container">
+            <div class="step_text_label">IVA:</div>
+            <div class="step_text_price">{{iva | currency}}</div>
+          </div>
+          <div class="step_text_container total">
+            <div class="step_text_label bold">Costo total:</div>
+            <div class="step_text_price">{{total | currency}}</div>
+          </div>
+        </div>
+        <button [disabled]="productFormGroup.get('earning').invalid" class="next_button" color="accent" mat-raised-button matStepperNext>Siguiente</button>
+      </div>
+    </mat-step>
+    <mat-step>
+      <ng-template matStepLabel>Listo</ng-template>
+      <div class="step_container">
+        <div class="step_body">Tu producto está listo para guardar</div>
+        <button *ngIf="!data.name" [disabled]="productFormGroup.invalid" class="next_button" color="accent" mat-raised-button (click)="save()">Guardar</button>
+        <button *ngIf="data.name" [disabled]="productFormGroup.invalid" class="next_button" color="accent" mat-raised-button (click)="update()">Actualizar</button>
+
+      </div>
+    </mat-step>
+  </mat-horizontal-stepper>
+</form>

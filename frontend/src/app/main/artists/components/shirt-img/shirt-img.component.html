@@ -1,0 +1,34 @@
+<div class="shirt_container">
+  <div class="shirt">
+    <div class="shirt_title">Frente</div>
+    <input (change)="fileChange($event.target.files, front, 'front')" class="inputfile" id="frontImageFile" name="file" type="file" accept="image/*">
+    <label class="shirt_img" for="frontImageFile">
+      <img src="assets/images/shirts/shirt.png" alt="">
+    </label>
+    <ng-container *ngIf="front.file">
+      <div class="thumb_container">
+        <img *ngIf="front.customSrc" class="thumb" [src]="front.customSrc">
+      </div>
+      <button (click)="removeImage(front)" class="thumb_button" mat-button color="accent">
+        Quitar la imagen actual
+        <mat-icon>delete_forever</mat-icon>
+      </button>
+    </ng-container>
+  </div>
+  <div class="shirt">
+    <div class="shirt_title">Vuelta</div>
+    <input (change)="fileChange($event.target.files, back, 'back')" class="inputfile" id="backImageFile" name="file" type="file" accept="image/*">
+    <label class="shirt_img" for="backImageFile">
+      <img src="assets/images/shirts/shirt.png" alt="">
+    </label>
+    <ng-container *ngIf="back.file">
+      <div class="thumb_container">
+        <img *ngIf="back.customSrc" class="thumb" [src]="back.customSrc">
+      </div>
+      <button (click)="removeImage(back)" class="thumb_button" mat-button color="accent">
+        Quitar la imagen actual
+        <mat-icon>delete_forever</mat-icon>
+      </button>
+    </ng-container>
+  </div>
+</div>

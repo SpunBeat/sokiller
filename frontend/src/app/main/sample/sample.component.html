@@ -1,0 +1,20 @@
+<div class="page-layout blank p-24">
+  <mat-card>
+    <form [formGroup]="itemForm" (submit)="submitForm()">
+      <mat-form-field>
+        <mat-label>Nombre</mat-label>
+        <input formControlName="name" type="text" matInput
+          placeholder="Nombre" />
+      </mat-form-field>
+      <button [disabled]="itemForm.invalid" class="mat-accent"
+        mat-button type="submit">
+        Add Item
+      </button>
+    </form>
+    <mat-list>
+      <mat-list-item matRipple *ngFor="let item of items$ | async">
+        {{item.name}}
+      </mat-list-item>
+    </mat-list>
+  </mat-card>
+</div>

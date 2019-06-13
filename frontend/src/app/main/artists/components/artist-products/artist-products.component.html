@@ -1,0 +1,46 @@
+<!-- BOARD LIST -->
+<div class="board-list" fxFlex="0 0 auto" fxLayout="row wrap" fxLayoutAlign="center center" [@animateStagger]="{value:'50'}">
+
+  <!-- BOARD -->
+  <div class="board-list-item" (click)="editBoard(product)" *ngFor="let product of products" fxLayout="column" fxLayoutAlign="center center" [@animate]="{value:'*',params:{y:'100%'}}">
+    <div class="board-name">{{product.name}}</div>
+    <div class="board-img">
+      <ng-container *ngIf="product.images.front.customSrc">
+        <img [src]="product.images.front.customSrc" alt="">
+      </ng-container>
+      <ng-container *ngIf="!product.images.front.customSrc">
+        <img [src]="product.images.back.customSrc" alt="">
+      </ng-container>
+    </div>
+    <div class="mini_bloques">
+      <div class="mini_bloque">
+        <div class="mini_bloque_title">Unidades Vendidas</div>
+        <div class="mini_bloque_body">0</div>
+      </div>
+      <div class="mini_bloque">
+        <div class="mini_bloque_title">Ganancia por unidad</div>
+        <div class="mini_bloque_body">{{product.earning}}</div>
+      </div>
+    </div>
+    <div class="mini_bloques">
+      <div class="mini_bloque">
+        <div class="mini_bloque_title">Precio al público</div>
+        <div class="mini_bloque_body">{{product.total}}</div>
+      </div>
+      <div class="mini_bloque">
+        <div class="mini_bloque_title">Ganancia Total</div>
+        <div class="mini_bloque_body">{{product.earning * 0}}</div>
+      </div>
+    </div>
+  </div>
+  <!-- / BOARD -->
+
+  <!-- NEW BOARD BUTTON -->
+  <div class="board-list-item add-new-board" fxLayout="column" fxLayoutAlign="center center" (click)="newBoard()" [@animate]="{value:'*',params:{y:'100%'}}">
+    <mat-icon class="s-56">add_circle</mat-icon>
+    <div class="board-name">Agregar nuevo producto</div>
+  </div>
+  <!-- / NEW BOARD BUTTON -->
+
+</div>
+<!-- / BOARD LIST -->

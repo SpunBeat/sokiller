@@ -1,0 +1,40 @@
+<div class="login__form">
+
+    <div class="mb-24">
+      <img src="assets/images/logos/sokiller.png">
+    </div>
+  
+    <form class="form mb-24" [formGroup]="loginForm" novalidate>
+      <mat-form-field appearance="outline" class="mb-16">
+        <mat-label>Email</mat-label>
+        <input matInput formControlName="email">
+        <mat-error *ngIf="loginForm.get('email').hasError('required')">
+          El email es obligatorio
+        </mat-error>
+        <mat-error *ngIf="!loginForm.get('email').hasError('required') &&
+                                  loginForm.get('email').hasError('email')">
+          El email no es válido
+        </mat-error>
+      </mat-form-field>
+  
+      <mat-form-field appearance="outline" class="mb-16">
+        <mat-label>Contraseña</mat-label>
+        <input matInput type="password" formControlName="password">
+        <mat-error>
+          La contraseña es obligatoria
+        </mat-error>
+      </mat-form-field>
+  
+      <div class="mb-24">
+        <mat-checkbox formControlName="remember">Recordar sesión</mat-checkbox>
+      </div>
+  
+      <button (click)="login()" class="gold" mat-button [disabled]="loginForm.invalid">LOGIN</button>
+  
+    </form>
+  
+    <div>
+      {{errorMessage}}
+    </div>
+  </div>
+  
