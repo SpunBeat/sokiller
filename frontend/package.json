@@ -4,7 +4,8 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve --port=8000",
-    "build": "ng build --prod --base-href=/dashboard/",
+    "build": "ng build --prod",
+    "builddash": "ng build --prod --base-href=/dashboard/",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
