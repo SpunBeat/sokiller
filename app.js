@@ -26,7 +26,8 @@ app.use(bodyParser.json({ limit: '50mb' }))
 app.use((req, res, next) => {
   const allowedOrigins = [
     'http://localhost:8000',
-    'https://sokiller.herokuapp.com'
+    'https://sokiller.herokuapp.com',
+    'http://sokiller.herokuapp.com'
   ]
   const origin = req.headers.origin
   if (allowedOrigins.indexOf(origin) > -1) {
