@@ -21,13 +21,20 @@ function getPublicUrl(filename) {
 }
 
 module.exports = app => {
-  app.route('/api/upload')
+  app.route('/api/admin/products/upload')
     .post(multer.single('file'), async (req, res, next) => {
       if (!req.file) {
         res.status(200).json({ message: 'no files' });
       }
 
-      const gcsname = Date.now() + req.file.originalname;
+      const filename = req.file.originalname
+      let str = filename.split('.').slice(0, -1).join('.')
+      const extension = filename.substr(filename.lastIndexOf('.') + 1)
+
+      str = str.replace(/\W+(?!$)/g, '-').toLowerCase();
+      str = str.replace(/\W$/, '').toLowerCase();
+
+      const gcsname = Date.now() + '--' + str + '.' + extension;
       const file = bucket.file(gcsname);
 
       const stream = file.createWriteStream({
@@ -44,7 +51,7 @@ module.exports = app => {
       stream.on('finish', () => {
         req.file.cloudStorageObject = gcsname;
         req.file.cloudStoragePublicUrl = getPublicUrl(gcsname);
-        res.status(200).json({ message: 'ready' });
+        res.status(200).json({ customSrc: req.file.cloudStoragePublicUrl });
       });
 
       stream.end(req.file.buffer);

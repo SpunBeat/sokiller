@@ -21,4 +21,8 @@ export class ArtistService {
     this.products = [...this.products, productToDelete];
     this.products$.next(this.products);
   }
+
+  addAllProducts(products: any[]) {
+    this.products = products;
+  }
 }

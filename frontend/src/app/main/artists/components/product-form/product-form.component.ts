@@ -2,6 +2,8 @@ import { Component, OnInit, ViewEncapsulation, Inject } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ArtistService } from '../../artists.service';
+import { SingletonService } from 'app/singleton.service';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-product-form',
@@ -30,11 +32,14 @@ export class ProductFormComponent implements OnInit {
     }
   };
 
+  singleton = SingletonService.getInstance();
+
   constructor(
     private _formBuilder: FormBuilder,
     public dialogRef: MatDialogRef<ProductFormComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private _artists: ArtistService) { }
+    private _artists: ArtistService,
+    private http: HttpClient) { }
 
   ngOnInit(): void {
     this.productFormGroup = this._formBuilder.group({
@@ -63,20 +68,41 @@ export class ProductFormComponent implements OnInit {
   }
 
   onFileChange(file: any) {
-    this.images[file.name] = file.obj;
+    const formData = new FormData();
+    formData.append('file', file.obj.file);
+    fetch(`${this.singleton.url}/admin/products/upload`, {
+      method: 'POST',
+      body: formData
+    })
+      .then(response => response.json())
+      .then((response: any) => {
+        this.images[file.name] = {
+          ...file.obj,
+          customSrc: response.customSrc,
+          file: {
+            lastModified: file.obj.file.lastModified,
+            name: file.obj.file.name,
+            size: file.obj.file.size,
+            type: file.obj.file.type,
+          }
+        };
+      });
   }
 
   save() {
-    const payload = this.productFormGroup.value;
-    this._artists.insertProduct({
-      ...payload,
+    const payload = {
+      ...this.productFormGroup.value,
       id: '_' + Math.random().toString(36).substr(2, 9),
       images: this.images,
       printPrice: this.printPrice,
       iva: this.iva,
       total: this.total
-    });
-    this.dialogRef.close();
+    };
+    this.http.post(`${this.singleton.url}/products`, payload)
+      .subscribe((data) => {
+        this._artists.insertProduct(payload);
+        this.dialogRef.close();
+      });
   }
 
   update() {

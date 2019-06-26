@@ -24,11 +24,10 @@ export class ArtistProductsComponent implements OnInit {
 
   ngOnInit(): void {
     this.app.get('/products').subscribe((response: any) => {
-      this.products = response.products;
+      this._artists.addAllProducts(response.products);
     });
     this._artists.products$.subscribe((products: any[]) => {
       this.products = [...products];
-      console.log(this.products);
     });
   }
 
