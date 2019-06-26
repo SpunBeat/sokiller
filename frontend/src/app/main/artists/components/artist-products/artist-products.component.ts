@@ -24,7 +24,8 @@ export class ArtistProductsComponent implements OnInit {
 
   ngOnInit(): void {
     this.app.get('/products').subscribe((response: any) => {
-      this._artists.addAllProducts(response.products);
+      this.products = response.products;
+      this._artists.addAllProducts(this.products);
     });
     this._artists.products$.subscribe((products: any[]) => {
       this.products = [...products];

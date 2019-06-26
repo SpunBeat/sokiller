@@ -5,11 +5,16 @@ const bluebird = require('bluebird')
 const mongoose = require('mongoose')
 const bodyParser = require('body-parser')
 const connection = 'mongodb://lugash-user:02f64ef10f@ds131312.mlab.com:31312/lugash'
+const path = require('path')
 
 // 1. Mongoose Configuration
 mongoose.Promise = bluebird
 bluebird.promisifyAll(mongoose)
-mongoose.connect(connection, { useNewUrlParser: true, useFindAndModify: false, useCreateIndex: true })
+mongoose.connect(connection, {
+  useNewUrlParser: true,
+  useFindAndModify: false,
+  useCreateIndex: true
+})
 
 // 2. Mongoose Hooks
 const db = mongoose.connection
@@ -34,7 +39,10 @@ app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', origin)
   }
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE')
-  res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization')
+  res.setHeader(
+    'Access-Control-Allow-Headers',
+    'Origin, X-Requested-With, Content-Type, Accept, Authorization'
+  )
   res.setHeader('Access-Control-Allow-Credentials', true)
   next()
 })
@@ -58,5 +66,13 @@ Payment.init(app)
 // 5. Routes
 app.use('/', express.static('public'))
 
+const angularRoutes = [
+  { path: '/artist/:id' },
+  { path: '/printer/:id' }
+]
+
+app.route(angularRoutes.map(route => route.path)).get(function(req, res) {
+  res.sendFile(path.resolve('public/index.html'))
+})
 
 app.listen(process.env.PORT || 8080, () => console.log('localhost:' + 8080))
