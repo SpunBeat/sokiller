@@ -1,0 +1,17 @@
+.mat_panel_content {
+  display: flex;
+  flex-direction: column;
+  padding-top: 20px;
+}
+
+.form_accordion {
+  width: 100%;
+  max-width: 1000px;
+  min-width: 600px;
+  display: flex;
+  flex-direction: column;
+}
+
+.mat-checkbox {
+  margin-right: 20px;
+}

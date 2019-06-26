@@ -20,9 +20,6 @@ import { AppService } from './app.service';
 
 import { appRoutes } from './app.routes';
 import { MainComponent } from './main/main.component';
-import { FirebaseModule } from './modules/firebase.module';
-import { environment } from 'environments/environment';
-import { AngularFireModule } from '@angular/fire';
 
 @NgModule({
   declarations: [
@@ -51,9 +48,6 @@ import { AngularFireModule } from '@angular/fire';
 
     // App modules
     LayoutModule,
-
-    AngularFireModule.initializeApp(environment.firebase),
-    FirebaseModule
   ],
   bootstrap: [
     AppComponent

@@ -8,31 +8,13 @@ export const navigation: FuseNavigation[] = [
     type: 'group',
     children: [
       {
-        id: 'sample',
-        title: 'Sample',
-        translate: 'NAV.SAMPLE.TITLE',
-        type: 'item',
-        icon: 'business',
-        url: '/sample'
-      },
-      {
-        id: 'users',
-        title: 'Users',
-        translate: 'NAV.USERS.TITLE',
-        type: 'item',
-        icon: 'how_to_reg',
-        url: '/users'
-      },
-      {
         id: 'artists',
-        title: 'Artists',
-        translate: 'NAV.ARTISTS.TITLE',
+        title: 'Artistas',
         type: 'collapsable',
         children: [
           {
             id: 'artist-data',
             title: 'Mis datos',
-            translate: 'NAV.USERS.TITLE',
             type: 'item',
             icon: 'graphic_eq',
             url: '/artist/info'
@@ -40,7 +22,6 @@ export const navigation: FuseNavigation[] = [
           {
             id: 'artist-products',
             title: 'Mis productos',
-            translate: 'NAV.USERS.TITLE',
             type: 'item',
             icon: 'local_offer',
             url: '/artist/products'
@@ -48,11 +29,24 @@ export const navigation: FuseNavigation[] = [
           {
             id: 'artist-orders',
             title: 'Mis pedidos',
-            translate: 'NAV.USERS.TITLE',
             type: 'item',
             icon: 'monetization_on',
             url: '/artist/orders'
           },
+        ]
+      },
+      {
+        id: 'printers',
+        title: 'Impresores',
+        type: 'collapsable',
+        children: [
+          {
+            id: 'printers-data',
+            title: 'Mis datos',
+            type: 'item',
+            icon: 'graphic_eq',
+            url: '/printer/info'
+          }
         ]
       }
     ]

@@ -25,6 +25,50 @@ const UserSchema = new mongoose.Schema({
   created: {
     type: Date,
     default: Date.now
+  },
+  generalData: {
+    name: String,
+    phone: String,
+    email: String,
+    password: String,
+    passwordHint: String,
+    access: {
+      comercialName: String,
+      establishmentPhone: String,
+      email: String,
+      password: String,
+      passwordHint: String
+    },
+    address: {
+      state: String,
+      street: String,
+      extNum: String,
+      intNum: String,
+      postalCode: String,
+      colonia: String,
+      alcaldia: String
+    },
+    inCharge: {
+      name: String,
+      phone: String
+    },
+    schedules: {
+      days: [],
+      start: String,
+      end: String
+    }
+  },
+  fiscalData: {
+    businessName: String,
+    rfc: String,
+    fiscalAddress: String,
+    email: String
+  },
+  bankData: {
+    bankName: String,
+    titularName: String,
+    accountNumber: String,
+    clabe: String
   }
 });
 

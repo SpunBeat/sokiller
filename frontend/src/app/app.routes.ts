@@ -16,22 +16,14 @@ export const appRoutes: Routes = [
     component: MainComponent,
     children: [
       {
-        path: 'sample',
-        loadChildren: './main/sample/sample.module#SampleModule',
-        canActivate: [AuthGuard],
-        canLoad: [AuthGuard]
-      },
-      {
-        path: 'users',
-        loadChildren: './main/users/users.module#UsersModule',
-        canActivate: [AuthGuard],
-        canLoad: [AuthGuard]
-      },
-      {
         path: 'artist',
         loadChildren: './main/artists/artists.module#ArtistsModule',
         canActivate: [AuthGuard],
         canLoad: [AuthGuard]
+      },
+      {
+        path: 'printer',
+        loadChildren: './main/printers/printers.module#PrintersModule',
       }
     ]
   },

@@ -39,7 +39,7 @@ export class LoginComponent implements OnInit {
         } else {
           this.singleton.jwt = response.token;
           this.singleton.user = response.user;
-          this.router.navigate(['/sample']);
+          this.router.navigate(['/artist/info']);
         }
       });
   }
