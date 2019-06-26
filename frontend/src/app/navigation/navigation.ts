@@ -13,7 +13,7 @@ export const navigation: FuseNavigation[] = [
         type: 'collapsable',
         children: [
           {
-            id: 'artist-data',
+            id: 'artist-info',
             title: 'Mis datos',
             type: 'item',
             icon: 'graphic_eq',
@@ -41,11 +41,25 @@ export const navigation: FuseNavigation[] = [
         type: 'collapsable',
         children: [
           {
-            id: 'printers-data',
+            id: 'printers-info',
             title: 'Mis datos',
             type: 'item',
             icon: 'graphic_eq',
             url: '/printer/info'
+          },
+          {
+            id: 'printers-orders',
+            title: 'Mis Pedidos',
+            type: 'item',
+            icon: 'monetization_on',
+            url: '/printer/orders'
+          },
+          {
+            id: 'printers-bills',
+            title: 'Estados de Cuenta',
+            type: 'item',
+            icon: 'local_offer',
+            url: '/printer/bills'
           }
         ]
       }

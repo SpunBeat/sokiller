@@ -4,6 +4,8 @@ import { FuseSharedModule } from '@fuse/shared.module';
 import { AppService } from 'app/app.service';
 import { PrintersComponent } from './printers.component';
 import { PrinterInfoComponent } from './components/printer-info/printer-info.component';
+import { PrinterOrdersComponent } from './components/printer-orders/printer-orders.component';
+import { PrinterBillsComponent } from './components/printer-bills/printer-bills.component';
 
 const routes = [
   {
@@ -13,6 +15,14 @@ const routes = [
       {
         path: 'info',
         component: PrinterInfoComponent
+      },
+      {
+        path: 'orders',
+        component: PrinterOrdersComponent
+      },
+      {
+        path: 'bills',
+        component: PrinterBillsComponent
       }
     ]
   }
@@ -21,7 +31,9 @@ const routes = [
 @NgModule({
   declarations: [
     PrintersComponent,
-    PrinterInfoComponent
+    PrinterInfoComponent,
+    PrinterOrdersComponent,
+    PrinterBillsComponent
   ],
   imports: [RouterModule.forChild(routes), FuseSharedModule],
   exports: [],

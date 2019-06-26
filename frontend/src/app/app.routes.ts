@@ -5,11 +5,11 @@ import { AuthGuard } from './auth/guards/auth-guard.service';
 export const appRoutes: Routes = [
   {
     path: '',
-    loadChildren: './auth/components/login/login.module#LoginModule'
+    loadChildren: () => import('./auth/components/login/login.module').then(m => m.LoginModule)
   },
   {
     path: 'registro',
-    loadChildren: './auth/components/register/register.module#RegisterModule'
+    loadChildren: () => import('./auth/components/register/register.module').then(m => m.RegisterModule)
   },
   {
     path: '',
@@ -17,13 +17,13 @@ export const appRoutes: Routes = [
     children: [
       {
         path: 'artist',
-        loadChildren: './main/artists/artists.module#ArtistsModule',
+        loadChildren: () => import('./main/artists/artists.module').then(m => m.ArtistsModule),
         canActivate: [AuthGuard],
         canLoad: [AuthGuard]
       },
       {
         path: 'printer',
-        loadChildren: './main/printers/printers.module#PrintersModule',
+        loadChildren: () => import('./main/printers/printers.module').then(m => m.PrintersModule),
       }
     ]
   },

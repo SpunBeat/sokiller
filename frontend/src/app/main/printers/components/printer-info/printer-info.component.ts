@@ -2,12 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AppService } from 'app/app.service';
 import { SingletonService } from 'app/singleton.service';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { fuseAnimations } from '@fuse/animations';
 
 @Component({
   selector: 'app-printer-info',
   templateUrl: './printer-info.component.html',
-  styleUrls: ['./printer-info.component.scss']
+  styleUrls: ['./printer-info.component.scss'],
+  animations: fuseAnimations
 })
 export class PrinterInfoComponent implements OnInit {
 

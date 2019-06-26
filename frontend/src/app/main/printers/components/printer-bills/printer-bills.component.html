@@ -1,0 +1,146 @@
+<div class="p-16 super_container" fxFlex="0 0 auto" fxLayout="row wrap" fxLayoutAlign="top center" [@animateStagger]="{value:'50'}">
+  <mat-card class="mr-24 tables" fxLayout="column" fxLayoutAlign="center center" [@animate]="{value:'*',params:{y:'100%'}}">
+    <mat-tab-group>
+      <mat-tab label="Entregados / Sin pago">
+        <mat-table class="orders-table" [dataSource]="deliveredDatasource">
+
+          <mat-header-row *matHeaderRowDef="deliveredColumns; sticky:true"></mat-header-row>
+          <mat-row *matRowDef="let order; columns: deliveredColumns;" class="order"></mat-row>
+
+          <ng-container matColumnDef="number">
+            <mat-header-cell *matHeaderCellDef> No. Pedido </mat-header-cell>
+            <mat-cell *matCellDef="let element">
+              <p class="text-truncate">{{element.number}}</p>
+            </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="product">
+            <mat-header-cell *matHeaderCellDef> Producto </mat-header-cell>
+            <mat-cell *matCellDef="let element">
+              <p class="text-truncate">{{element.name}}</p>
+            </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="cost">
+            <mat-header-cell *matHeaderCellDef> Costo </mat-header-cell>
+            <mat-cell *matCellDef="let element">
+              <p class="text-truncate">{{element.cost}}</p>
+            </mat-cell>
+          </ng-container>
+
+        </mat-table>
+      </mat-tab>
+      <mat-tab label="En proceso de pago">
+        <mat-table class="orders-table" [dataSource]="paymentProcessDatasource">
+
+          <mat-header-row *matHeaderRowDef="paymentProcessColumns; sticky:true"></mat-header-row>
+          <mat-row *matRowDef="let order; columns: paymentProcessColumns;" class="order"></mat-row>
+
+          <ng-container matColumnDef="number">
+            <mat-header-cell *matHeaderCellDef> No. Factura </mat-header-cell>
+            <mat-cell *matCellDef="let element">
+              <p class="text-truncate">{{element.number}}</p>
+            </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="orders">
+            <mat-header-cell *matHeaderCellDef> Pedidos </mat-header-cell>
+            <mat-cell *matCellDef="let element">
+              <p class="text-truncate">{{element.orders}}</p>
+            </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="payment">
+            <mat-header-cell *matHeaderCellDef> Pago </mat-header-cell>
+            <mat-cell *matCellDef="let element">
+              <p class="text-truncate">{{element.payment}}</p>
+            </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="requestDate">
+            <mat-header-cell *matHeaderCellDef> Fecha de petición </mat-header-cell>
+            <mat-cell *matCellDef="let element">
+              <p class="text-truncate">{{element.requestDate}}</p>
+            </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="paymentDate">
+            <mat-header-cell *matHeaderCellDef> Fecha programada de pago </mat-header-cell>
+            <mat-cell *matCellDef="let element">
+              <p class="text-truncate">{{element.paymentDate}}</p>
+            </mat-cell>
+          </ng-container>
+
+        </mat-table>
+      </mat-tab>
+      <mat-tab label="Pagados">
+        <mat-table class="orders-table" [dataSource]="paidOutDatasource">
+
+          <mat-header-row *matHeaderRowDef="paidOutColumns; sticky:true"></mat-header-row>
+          <mat-row *matRowDef="let order; columns: paidOutColumns;" class="order"></mat-row>
+
+          <ng-container matColumnDef="number">
+            <mat-header-cell *matHeaderCellDef> No. Factura </mat-header-cell>
+            <mat-cell *matCellDef="let element">
+              <p class="text-truncate">{{element.number}}</p>
+            </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="orders">
+            <mat-header-cell *matHeaderCellDef> Pedidos </mat-header-cell>
+            <mat-cell *matCellDef="let element">
+              <p class="text-truncate">{{element.orders}}</p>
+            </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="payment">
+            <mat-header-cell *matHeaderCellDef> Pago </mat-header-cell>
+            <mat-cell *matCellDef="let element">
+              <p class="text-truncate">{{element.payment}}</p>
+            </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="paymentDate">
+            <mat-header-cell *matHeaderCellDef> Fecha de pago </mat-header-cell>
+            <mat-cell *matCellDef="let element">
+              <p class="text-truncate">{{element.paymentDate}}</p>
+            </mat-cell>
+          </ng-container>
+
+        </mat-table>
+      </mat-tab>
+    </mat-tab-group>
+  </mat-card>
+  <mat-card fxLayout="column" fxLayoutAlign="center center" [@animate]="{value:'*',params:{y:'100%'}}">
+    <mat-card-subtitle>Total Solicitado</mat-card-subtitle>
+    <mat-card-content>
+      <form>
+        <h2 class="factura_amount">{{factura | currency}}</h2>
+        <div>Tu factura o recibo debe llenarse así:</div>
+        <div class="gray_label">Servicio: 1 servicio de diseño gráfico</div>
+        <div class="desglose_ventas">
+          <div class="desglose_concept">
+            <div class="gray_label">Subtotal</div>
+            <div>{{subtotal | currency}}</div>
+          </div>
+          <div class="desglose_concept">
+            <div class="gray_label">IVA</div>
+            <div>{{iva | currency}}</div>
+          </div>
+          <div class="desglose_concept">
+            <div class="gray_label">Total</div>
+            <div>{{factura | currency}}</div>
+          </div>
+        </div>
+        <ng-container *ngIf="factura > 0">
+          <div class="gray_label">Carga el archivo XML de su factura o recibo</div>
+          <div class="xml_container">
+            <label for="mojo" class="xml_loader">XML</label>
+            <input (change)="loadFile($event)" type="file" id="mojo" accept="text/xml" />
+            <button [disabled]="!file" class="mat-raised-button mat-accent">Validar factura</button>
+          </div>
+        </ng-container>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

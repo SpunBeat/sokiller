@@ -1,0 +1,162 @@
+<div class="p-16 super_container" fxFlex="0 0 auto" fxLayout="row wrap" fxLayoutAlign="top center" [@animateStagger]="{value:'50'}">
+
+  <mat-card class="mr-24 tables" fxLayout="column" fxLayoutAlign="center center" [@animate]="{value:'*',params:{y:'100%'}}">
+    <mat-tab-group>
+
+      <mat-tab label="Nuevos / Pendientes">
+        <mat-table class="orders-table" [dataSource]="dataSource">
+
+          <mat-header-row *matHeaderRowDef="displayedColumns; sticky:true"></mat-header-row>
+          <mat-row *matRowDef="let order; columns: displayedColumns;" class="order"></mat-row>
+
+          <ng-container matColumnDef="number">
+            <mat-header-cell *matHeaderCellDef> No. Pedido </mat-header-cell>
+            <mat-cell *matCellDef="let element">
+              <p class="text-truncate">{{element.number}}</p>
+            </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="product">
+            <mat-header-cell *matHeaderCellDef> Producto </mat-header-cell>
+            <mat-cell *matCellDef="let element">
+              <p class="text-truncate">{{element.name}}</p>
+            </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="size">
+            <mat-header-cell *matHeaderCellDef> Talla </mat-header-cell>
+            <mat-cell *matCellDef="let element">
+              <p class="text-truncate">{{element.size}}</p>
+            </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="color">
+            <mat-header-cell *matHeaderCellDef> Color </mat-header-cell>
+            <mat-cell *matCellDef="let element">
+              <p class="text-truncate">{{element.color}}</p>
+            </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="view">
+            <mat-header-cell *matHeaderCellDef> Vista </mat-header-cell>
+            <mat-cell *matCellDef="let element">
+              <p class="text-truncate">{{element.view}}</p>
+            </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="files">
+            <mat-header-cell *matHeaderCellDef> Archivos </mat-header-cell>
+            <mat-cell *matCellDef="let element">
+              <p class="text-truncate">{{element.files}}</p>
+            </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="cost">
+            <mat-header-cell *matHeaderCellDef> Costo </mat-header-cell>
+            <mat-cell *matCellDef="let element">
+              <p class="text-truncate">{{element.cost}}</p>
+            </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="actions">
+            <mat-header-cell *matHeaderCellDef> Acciones </mat-header-cell>
+            <mat-cell *matCellDef="let element">
+              <button mat-raised-button class="mat-accent">Imprimir</button>
+            </mat-cell>
+          </ng-container>
+
+        </mat-table>
+      </mat-tab>
+
+      <mat-tab label="Impresos / Envolver">
+        <mat-table class="orders-table" [dataSource]="printedDatasource">
+
+          <mat-header-row *matHeaderRowDef="printedColumns; sticky:true"></mat-header-row>
+          <mat-row *matRowDef="let order; columns: printedColumns;" class="order"></mat-row>
+
+          <ng-container matColumnDef="number">
+            <mat-header-cell *matHeaderCellDef> No. Pedido </mat-header-cell>
+            <mat-cell *matCellDef="let element">
+              <p class="text-truncate">{{element.number}}</p>
+            </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="product">
+            <mat-header-cell *matHeaderCellDef> Producto </mat-header-cell>
+            <mat-cell *matCellDef="let element">
+              <p class="text-truncate">{{element.name}}</p>
+            </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="size">
+            <mat-header-cell *matHeaderCellDef> Talla </mat-header-cell>
+            <mat-cell *matCellDef="let element">
+              <p class="text-truncate">{{element.size}}</p>
+            </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="color">
+            <mat-header-cell *matHeaderCellDef> Color </mat-header-cell>
+            <mat-cell *matCellDef="let element">
+              <p class="text-truncate">{{element.color}}</p>
+            </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="view">
+            <mat-header-cell *matHeaderCellDef> Vista </mat-header-cell>
+            <mat-cell *matCellDef="let element">
+              <p class="text-truncate">{{element.view}}</p>
+            </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="shipping">
+            <mat-header-cell *matHeaderCellDef> Datos de envío </mat-header-cell>
+            <mat-cell *matCellDef="let element">
+              <p class="text-truncate">{{element.shipping}}</p>
+            </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="actions">
+            <mat-header-cell *matHeaderCellDef> Acciones </mat-header-cell>
+            <mat-cell *matCellDef="let element">
+              <button mat-raised-button class="mat-accent">Imprimir</button>
+            </mat-cell>
+          </ng-container>
+
+        </mat-table>
+      </mat-tab>
+
+      <mat-tab label="Para Recolección">
+        <mat-table class="orders-table" [dataSource]="forRecolectDatasource">
+
+          <mat-header-row *matHeaderRowDef="forRecolectColumns; sticky:true"></mat-header-row>
+          <mat-row *matRowDef="let order; columns: forRecolectColumns;" class="order"></mat-row>
+
+          <ng-container matColumnDef="number">
+            <mat-header-cell *matHeaderCellDef> No. Pedido </mat-header-cell>
+            <mat-cell *matCellDef="let element">
+              <p class="text-truncate">{{element.number}}</p>
+            </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="product">
+            <mat-header-cell *matHeaderCellDef> Producto </mat-header-cell>
+            <mat-cell *matCellDef="let element">
+              <p class="text-truncate">{{element.name}}</p>
+            </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="shipping">
+            <mat-header-cell *matHeaderCellDef> Datos de envío </mat-header-cell>
+            <mat-cell *matCellDef="let element">
+              <p class="text-truncate">{{element.shipping}}</p>
+            </mat-cell>
+          </ng-container>
+
+        </mat-table>
+      </mat-tab>
+
+    </mat-tab-group>
+  </mat-card>
+
+</div>
