@@ -1,88 +1,90 @@
 <div class="p-24">
-  <mat-card>
-    <mat-card-subtitle>Mis datos</mat-card-subtitle>
-    <mat-card-content>
-      <form [formGroup]="formGroup">
-        <mat-accordion class="form_accordion">
-          <mat-expansion-panel>
-            <mat-expansion-panel-header>
-              <mat-panel-title> Datos personales </mat-panel-title>
-            </mat-expansion-panel-header>
-            <div class="mat_panel_content" [formGroup]="generalData()">
-              <mat-form-field appearance="outline">
-                <mat-label>Nombre Completo</mat-label>
-                <input formControlName="name" type="text" matInput placeholder="Nombre Completo" />
-              </mat-form-field>
-              <mat-form-field appearance="outline">
-                <mat-label>Número celular / móvil</mat-label>
-                <input formControlName="phone" type="text" matInput placeholder="Número celular / móvil" />
-              </mat-form-field>
-              <mat-form-field appearance="outline">
-                <mat-label>Correo electrónico</mat-label>
-                <input formControlName="email" type="text" matInput placeholder="Correo electrónico" />
-              </mat-form-field>
-              <mat-form-field appearance="outline">
-                <mat-label>Contraseña</mat-label>
-                <input formControlName="password" type="text" matInput placeholder="Contraseña" />
-              </mat-form-field>
-              <mat-form-field appearance="outline">
-                <mat-label>Pista contraseña</mat-label>
-                <input formControlName="passwordHint" type="text" matInput placeholder="Pista contraseña" />
-              </mat-form-field>
-            </div>
-          </mat-expansion-panel>
-          <mat-expansion-panel>
-            <mat-expansion-panel-header>
-              <mat-panel-title> Datos fiscales </mat-panel-title>
-            </mat-expansion-panel-header>
-            <div class="mat_panel_content" [formGroup]="fiscalData()">
-              <mat-form-field appearance="outline">
-                <mat-label>Razón social</mat-label>
-                <input formControlName="businessName" type="text" matInput placeholder="Razón social" />
-              </mat-form-field>
-              <mat-form-field appearance="outline">
-                <mat-label>RFC</mat-label>
-                <input formControlName="rfc" type="text" matInput placeholder="RFC" />
-              </mat-form-field>
-              <mat-form-field appearance="outline">
-                <mat-label>Domicilio Fiscal</mat-label>
-                <input formControlName="fiscalAddress" type="text" matInput placeholder="Domicilio Fiscal" />
-              </mat-form-field>
-              <mat-form-field appearance="outline">
-                <mat-label>Correo electrónico</mat-label>
-                <input formControlName="email" type="text" matInput placeholder="Correo electrónico" />
-              </mat-form-field>
-            </div>
-          </mat-expansion-panel>
-          <mat-expansion-panel>
-            <mat-expansion-panel-header>
-              <mat-panel-title> Datos bancarios </mat-panel-title>
-            </mat-expansion-panel-header>
-            <div class="mat_panel_content" [formGroup]="bankData()">
-              <mat-form-field appearance="outline">
-                <mat-label>Nombre del Banco</mat-label>
-                <input formControlName="bankName" type="text" matInput placeholder="Nombre del Banco" />
-              </mat-form-field>
-              <mat-form-field appearance="outline">
-                <mat-label>Número completo del titular de cuenta</mat-label>
-                <input formControlName="titularName" type="text" matInput placeholder="Número completo del titular de cuenta" />
-              </mat-form-field>
-              <mat-form-field appearance="outline">
-                <mat-label>Número de cuenta</mat-label>
-                <input formControlName="accountNumber" type="text" matInput placeholder="Número de cuenta" />
-              </mat-form-field>
-              <mat-form-field appearance="outline">
-                <mat-label>CLABE interbancaria</mat-label>
-                <input formControlName="clabe" type="text" matInput placeholder="CLABE interbancaria" />
-              </mat-form-field>
-            </div>
-          </mat-expansion-panel>
-        </mat-accordion>
-      </form>
-    </mat-card-content>
-    <mat-card-actions>
-      <button (click)="updateFormGroup()" [disabled]="formGroup.invalid || formGroup.pristine" class="mat-accent" mat-raised-button>Guardar</button>
-      <button (click)="resetFormGroup()" [disabled]="formGroup.pristine" class="mat-accent" mat-raised-button>Cancelar</button>
-    </mat-card-actions>
-  </mat-card>
+  <ng-container *ngIf="formGroup">
+    <mat-card>
+      <mat-card-subtitle>Mis datos</mat-card-subtitle>
+      <mat-card-content>
+        <form [formGroup]="formGroup">
+          <mat-accordion class="form_accordion">
+            <mat-expansion-panel>
+              <mat-expansion-panel-header>
+                <mat-panel-title> Datos personales </mat-panel-title>
+              </mat-expansion-panel-header>
+              <div class="mat_panel_content" [formGroup]="profileData()">
+                <mat-form-field appearance="outline">
+                  <mat-label>Nombre Completo</mat-label>
+                  <input formControlName="name" type="text" matInput placeholder="Nombre Completo" />
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                  <mat-label>Número celular / móvil</mat-label>
+                  <input formControlName="phone" type="text" matInput placeholder="Número celular / móvil" />
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                  <mat-label>Correo electrónico</mat-label>
+                  <input formControlName="email" type="text" matInput placeholder="Correo electrónico" />
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                  <mat-label>Contraseña</mat-label>
+                  <input formControlName="password" type="text" matInput placeholder="Contraseña" />
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                  <mat-label>Pista contraseña</mat-label>
+                  <input formControlName="passwordHint" type="text" matInput placeholder="Pista contraseña" />
+                </mat-form-field>
+              </div>
+            </mat-expansion-panel>
+            <mat-expansion-panel>
+              <mat-expansion-panel-header>
+                <mat-panel-title> Datos fiscales </mat-panel-title>
+              </mat-expansion-panel-header>
+              <div class="mat_panel_content" [formGroup]="fiscalData()">
+                <mat-form-field appearance="outline">
+                  <mat-label>Razón social</mat-label>
+                  <input formControlName="businessName" type="text" matInput placeholder="Razón social" />
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                  <mat-label>RFC</mat-label>
+                  <input formControlName="rfc" type="text" matInput placeholder="RFC" />
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                  <mat-label>Domicilio Fiscal</mat-label>
+                  <input formControlName="fiscalAddress" type="text" matInput placeholder="Domicilio Fiscal" />
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                  <mat-label>Correo electrónico</mat-label>
+                  <input formControlName="email" type="text" matInput placeholder="Correo electrónico" />
+                </mat-form-field>
+              </div>
+            </mat-expansion-panel>
+            <mat-expansion-panel>
+              <mat-expansion-panel-header>
+                <mat-panel-title> Datos bancarios </mat-panel-title>
+              </mat-expansion-panel-header>
+              <div class="mat_panel_content" [formGroup]="bankData()">
+                <mat-form-field appearance="outline">
+                  <mat-label>Nombre del Banco</mat-label>
+                  <input formControlName="bankName" type="text" matInput placeholder="Nombre del Banco" />
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                  <mat-label>Número completo del titular de cuenta</mat-label>
+                  <input formControlName="titularName" type="text" matInput placeholder="Número completo del titular de cuenta" />
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                  <mat-label>Número de cuenta</mat-label>
+                  <input formControlName="accountNumber" type="text" matInput placeholder="Número de cuenta" />
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                  <mat-label>CLABE interbancaria</mat-label>
+                  <input formControlName="clabe" type="text" matInput placeholder="CLABE interbancaria" />
+                </mat-form-field>
+              </div>
+            </mat-expansion-panel>
+          </mat-accordion>
+        </form>
+      </mat-card-content>
+      <mat-card-actions>
+        <button (click)="updateFormGroup()" [disabled]="formGroup.invalid || formGroup.pristine" class="mat-accent" mat-raised-button>Guardar</button>
+        <button (click)="resetFormGroup()" [disabled]="formGroup.pristine" class="mat-accent" mat-raised-button>Cancelar</button>
+      </mat-card-actions>
+    </mat-card>
+  </ng-container>
 </div>

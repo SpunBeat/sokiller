@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { SingletonService } from './singleton.service';
 import { Observable } from 'rxjs';
-import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 
 @Injectable({
@@ -14,7 +13,6 @@ export class AppService {
 
   constructor(
     private http: HttpClient,
-    public afAuth: AngularFireAuth,
     private router: Router,
   ) { }
 
@@ -60,9 +58,7 @@ export class AppService {
   }
 
   logOut() {
-    this.afAuth.auth.signOut().then(() => {
-      this.router.navigate(['']);
-    });
+
   }
 
 }

@@ -26,12 +26,14 @@ const UserSchema = new mongoose.Schema({
     type: Date,
     default: Date.now
   },
-  generalData: {
+  profileData: {
     name: String,
     phone: String,
     email: String,
     password: String,
     passwordHint: String,
+  },
+  generalData: {
     access: {
       comercialName: String,
       establishmentPhone: String,

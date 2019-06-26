@@ -11,4 +11,8 @@ module.exports = (app) => {
     .get(users.list);
   app.route('/api/admin/check')
     .post(requireAuth, users.check);
+  app.route('/api/admin/user/profile')
+    .post(users.profile);
+  app.route('/api/admin/user/updateSpecificData/:userId')
+    .patch(users.updateSpecificData);
 };
