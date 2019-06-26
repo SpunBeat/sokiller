@@ -47,6 +47,8 @@ require('./api/models/users/users.routes')(app)
 
 require('./api/services/Passport')()
 
+require('./api/models/Image')(app)
+
 // 4. API
 const { Product, Order, Payment } = require('./api/models')
 Product.init(app)
