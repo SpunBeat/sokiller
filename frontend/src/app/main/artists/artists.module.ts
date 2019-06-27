@@ -11,24 +11,25 @@ import { ArtistInfoComponent } from './components/artist-info/artist-info.compon
 import { ProductFormComponent } from './components/product-form/product-form.component';
 import { ShirtImgComponent } from './components/shirt-img/shirt-img.component';
 import { ArtistService } from './artists.service';
+import { ProductsStoreModule } from './store/states/products/products-store.module';
 
 const routes = [
   {
     path: '',
     component: ArtistsComponent,
     children: [
-        {
-          path: 'products',
-          component: ArtistProductsComponent
-        },
-        {
-          path: 'info',
-          component: ArtistInfoComponent
-        },
-        {
-          path: 'orders',
-          component: ArtistOrdersComponent
-        }
+      {
+        path: 'products',
+        component: ArtistProductsComponent
+      },
+      {
+        path: 'info',
+        component: ArtistInfoComponent
+      },
+      {
+        path: 'orders',
+        component: ArtistOrdersComponent
+      }
     ]
   },
 ];
@@ -42,7 +43,13 @@ const routes = [
     ProductFormComponent,
     ShirtImgComponent
   ],
-  imports: [RouterModule.forChild(routes), TranslateModule, FuseSharedModule],
+  imports: [
+    RouterModule.forChild(routes),
+    TranslateModule,
+    FuseSharedModule,
+    // ngrx
+    ProductsStoreModule
+  ],
   exports: [],
   providers: [AppService, ArtistService],
   entryComponents: [ProductFormComponent]

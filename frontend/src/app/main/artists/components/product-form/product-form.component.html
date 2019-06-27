@@ -63,7 +63,7 @@
         <div class="step_body">Tu producto está listo para guardar</div>
         <button *ngIf="!data.name" [disabled]="productFormGroup.invalid" class="next_button" color="accent" mat-raised-button (click)="save()">Guardar</button>
         <button *ngIf="data.name" [disabled]="productFormGroup.invalid" class="next_button" color="accent" mat-raised-button (click)="update()">Actualizar</button>
-
+        <button *ngIf="data.name" [disabled]="productFormGroup.invalid" color="accent" mat-raised-button (click)="delete()">Eliminar</button>
       </div>
     </mat-step>
   </mat-horizontal-stepper>

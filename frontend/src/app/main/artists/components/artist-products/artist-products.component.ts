@@ -1,9 +1,9 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { fuseAnimations } from '@fuse/animations';
 import { MatDialog } from '@angular/material/dialog';
+import { Store, select } from '@ngrx/store';
 import { ProductFormComponent } from '../product-form/product-form.component';
-import { ArtistService } from '../../artists.service';
-import { AppService } from 'app/app.service';
+import { selectAllProducts, LoadProducts } from '../../store';
 
 @Component({
   selector: 'app-artist-products',
@@ -18,18 +18,15 @@ export class ArtistProductsComponent implements OnInit {
 
   constructor(
     private _matDialog: MatDialog,
-    private _artists: ArtistService,
-    private app: AppService
-    ) { }
+    private store: Store<any>
+  ) {
+    this.store.pipe(select(selectAllProducts)).subscribe(products => {
+      this.products = products;
+    });
+  }
 
   ngOnInit(): void {
-    this.app.get('/products').subscribe((response: any) => {
-      this.products = response.products;
-      this._artists.addAllProducts(this.products);
-    });
-    this._artists.products$.subscribe((products: any[]) => {
-      this.products = [...products];
-    });
+    this.store.dispatch(LoadProducts());
   }
 
   newBoard(): void {

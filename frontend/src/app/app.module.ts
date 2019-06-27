@@ -20,6 +20,7 @@ import { AppService } from './app.service';
 
 import { appRoutes } from './app.routes';
 import { MainComponent } from './main/main.component';
+import { RootStoreModule } from './store/root-store.module';
 
 @NgModule({
   declarations: [
@@ -48,6 +49,9 @@ import { MainComponent } from './main/main.component';
 
     // App modules
     LayoutModule,
+
+    // NGRX
+    RootStoreModule
   ],
   bootstrap: [
     AppComponent

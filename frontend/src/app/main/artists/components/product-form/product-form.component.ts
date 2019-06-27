@@ -1,9 +1,9 @@
 import { Component, OnInit, ViewEncapsulation, Inject } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { ArtistService } from '../../artists.service';
 import { SingletonService } from 'app/singleton.service';
-import { HttpClient } from '@angular/common/http';
+import { Store } from '@ngrx/store';
+import { CreateProduct, UpdateProduct, DeleteProduct } from '../../store';
 
 @Component({
   selector: 'app-product-form',
@@ -38,11 +38,12 @@ export class ProductFormComponent implements OnInit {
     private _formBuilder: FormBuilder,
     public dialogRef: MatDialogRef<ProductFormComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private _artists: ArtistService,
-    private http: HttpClient) { }
+    private store: Store<any>
+  ) { }
 
   ngOnInit(): void {
     this.productFormGroup = this._formBuilder.group({
+      _id: [this.data._id ? this.data._id : ''],
       name: [this.data.name ? this.data.name : '', Validators.required],
       type: [this.data.type ? this.data.type : '', Validators.required],
       earning: [this.data.earning ? this.data.earning : '', Validators.required]
@@ -101,24 +102,27 @@ export class ProductFormComponent implements OnInit {
       iva: this.iva,
       total: this.total
     };
-    this.http.post(`${this.singleton.url}/products`, payload)
-      .subscribe((data) => {
-        this._artists.insertProduct(payload);
-        this.dialogRef.close();
-      });
+    delete payload._id;
+    this.store.dispatch(CreateProduct({ payload }));
+    this.dialogRef.close();
   }
 
   update() {
-    const payload = this.productFormGroup.value;
-    this._artists.updateProduct({
-      ...payload,
+    const payload = {
+      ...this.productFormGroup.value,
       id: this.data.id,
       images: this.images,
       printPrice: this.printPrice,
       iva: this.iva,
       total: this.total
-    });
+    };
+    this.store.dispatch(UpdateProduct({ payload, id: payload._id }));
     this.dialogRef.close();
+  }
 
+  delete() {
+    this.store.dispatch(DeleteProduct({
+      id: this.productFormGroup.get('_id').value
+    }));
   }
 }
