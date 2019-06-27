@@ -48,7 +48,10 @@ export class ProductFormComponent implements OnInit {
       earning: [this.data.earning ? this.data.earning : '', Validators.required]
     });
     if (this.data.images) {
-      this.images = this.data.images;
+      this.images = {
+        ...this.images,
+        ...this.data.images
+      };
     }
     if (this.data.iva) {
       this.iva = this.data.iva;
