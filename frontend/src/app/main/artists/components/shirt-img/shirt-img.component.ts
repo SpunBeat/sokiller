@@ -6,7 +6,7 @@ import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
   styleUrls: ['./shirt-img.component.scss']
 })
 export class ShirtImgComponent implements OnInit {
-  
+
   @Output()
   filechange = new EventEmitter<any>();
 
@@ -42,7 +42,8 @@ export class ShirtImgComponent implements OnInit {
   }
 
   removeImage(obj: any) {
-    obj.file = undefined;
-    obj.customSrc = undefined;
+    console.log(obj);
+    // obj.file = undefined;
+    // obj.customSrc = undefined;
    }
 }

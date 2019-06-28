@@ -64,7 +64,7 @@ const updateOne = (config, ...funs) => async (req, res) => {
     // 2. reference to a mongoose model
     const ref = mongoose.model(from)
     // 3. start the query
-    const query = ref.findOneAndUpdate(
+    const query = ref.findByIdAndUpdate(
       // a. find by
       req.params[by],
       // b. set properties - ie. $set: { a: req.body.a, ... }
@@ -90,7 +90,7 @@ const deleteOne = config => async (req, res) => {
     // 2. reference to a mongoose model
     const ref = mongoose.model(from)
     // 3. start the query
-    const query = ref.findOneAndRemove(req.params[by])
+    const query = ref.findByIdAndRemove(req.params[by])
     // 4. await to responds
     const data = await query.execAsync()
     // 5. response to server
