@@ -4,9 +4,9 @@ import { Actions, ofType, createEffect } from '@ngrx/effects';
 import { of } from 'rxjs';
 import { mergeMap, map, catchError } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material';
-import * as ProductsApiActions from './products.actions';
 import { AppService } from 'app/app.service';
 import { ProductRef } from 'app/main/artists/models';
+import * as ProductsApiActions from './products.actions';
 
 @Injectable()
 export class ProductsEffects {

@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { TranslateModule } from '@ngx-translate/core';
 import { FuseSharedModule } from '@fuse/shared.module';
 
 import { AppService } from 'app/app.service';
@@ -12,6 +11,7 @@ import { ProductFormComponent } from './components/product-form/product-form.com
 import { ShirtImgComponent } from './components/shirt-img/shirt-img.component';
 import { ArtistService } from './artists.service';
 import { ProductsStoreModule } from './store/states/products/products-store.module';
+import { InfoStoreModule } from './store/states/info/info-store.module';
 
 const routes = [
   {
@@ -45,10 +45,10 @@ const routes = [
   ],
   imports: [
     RouterModule.forChild(routes),
-    TranslateModule,
     FuseSharedModule,
     // ngrx
-    ProductsStoreModule
+    ProductsStoreModule,
+    InfoStoreModule
   ],
   exports: [],
   providers: [AppService, ArtistService],
