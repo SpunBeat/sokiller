@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { SingletonService } from 'app/singleton.service';
 import { AppService } from 'app/app.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Store, select } from '@ngrx/store';
+import { selectUser } from '../../store';
 
 @Component({
   selector: 'app-artist-info',
@@ -25,15 +27,15 @@ export class ArtistInfoComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private app: AppService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private store: Store<any>
   ) { }
 
   ngOnInit(): void {
-    this.app.post(`/admin/user/profile`, { userId: this.singleton.user._id })
-      .subscribe((data: any) => {
-        this.user = data.user;
-        this.initFormGroup(this.user);
-      });
+    this.store.pipe(select(selectUser)).subscribe(user => {
+      this.user = user;
+      this.initFormGroup(this.user);
+    });
   }
 
   initFormGroup(user: any): void {

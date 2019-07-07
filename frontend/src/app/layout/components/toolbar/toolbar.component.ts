@@ -10,6 +10,8 @@ import { FuseSidebarService } from '@fuse/components/sidebar/sidebar.service';
 import { navigation } from 'app/navigation/navigation';
 import { SingletonService } from 'app/singleton.service';
 import { AppService } from 'app/app.service';
+import { Store } from '@ngrx/store';
+import { Logout } from 'app/main/artists/store';
 
 @Component({
   selector: 'toolbar',
@@ -36,7 +38,8 @@ export class ToolbarComponent implements OnInit, OnDestroy {
     private _fuseConfigService: FuseConfigService,
     private _fuseSidebarService: FuseSidebarService,
     private _translateService: TranslateService,
-    private app: AppService
+    private app: AppService,
+    private store: Store<any>
   ) {
     // Set the defaults
     this.userStatusOptions = [
@@ -151,6 +154,6 @@ export class ToolbarComponent implements OnInit, OnDestroy {
   }
 
   logOut() {
-    this.app.logOut();
+    this.store.dispatch(Logout());
   }
 }

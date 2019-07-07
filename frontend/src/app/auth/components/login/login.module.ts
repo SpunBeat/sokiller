@@ -5,6 +5,7 @@ import { FuseSharedModule } from '@fuse/shared.module';
 
 import { LoginComponent } from './login.component';
 import { AppService } from 'app/app.service';
+import { InfoStoreModule } from 'app/main/artists/store/states/info/info-store.module';
 
 const routes = [
   {
@@ -15,8 +16,13 @@ const routes = [
 
 @NgModule({
   declarations: [LoginComponent],
-  imports: [RouterModule.forChild(routes), TranslateModule, FuseSharedModule],
+  imports: [
+    RouterModule.forChild(routes),
+    TranslateModule,
+    FuseSharedModule,
+    InfoStoreModule
+  ],
   exports: [LoginComponent],
-  providers: [ AppService ]
+  providers: [AppService]
 })
-export class LoginModule {}
+export class LoginModule { }

@@ -1,3 +1,6 @@
+import { User } from '../store/states/info/info.reducer';
+
 export interface UserInfo {
-  name: string;
+  user: User;
+  token: string;
 }

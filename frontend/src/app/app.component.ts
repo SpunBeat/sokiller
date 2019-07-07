@@ -1,8 +1,9 @@
-import { Component} from '@angular/core';
+import { Component } from '@angular/core';
 import { FuseSplashScreenService } from '@fuse/services/splash-screen.service';
 import { Router } from '@angular/router';
-import { AppService } from './app.service';
-import { CheckLoginResponse } from './app.interfaces';
+import { Store, select } from '@ngrx/store';
+import { selectLoggedIn, LoginSuccess } from './main/artists/store';
+import { SingletonService } from './singleton.service';
 
 @Component({
   selector: 'app',
@@ -11,11 +12,23 @@ import { CheckLoginResponse } from './app.interfaces';
 })
 export class AppComponent {
 
+  singleton = SingletonService.getInstance();
+
   constructor(
     private _fuseSplashScreenService: FuseSplashScreenService,
     private router: Router,
-    private app: AppService
+    private store: Store<any>
   ) {
+
+    this.store.pipe(select(selectLoggedIn)).subscribe((loggedIn) => {
+      if (!loggedIn) {
+        this.router.navigate(['/']);
+      } else {
+        const { user } = this.singleton;
+        this.store.dispatch(LoginSuccess({ user }));
+      }
+    });
+
   }
 
 }

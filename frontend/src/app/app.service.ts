@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { SingletonService } from './singleton.service';
-import { Observable } from 'rxjs';
-import { Router } from '@angular/router';
+import { Observable, of, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +12,6 @@ export class AppService {
 
   constructor(
     private http: HttpClient,
-    private router: Router,
   ) { }
 
   get(endpoint: string): Observable<Object> {
@@ -58,7 +56,12 @@ export class AppService {
   }
 
   logOut() {
-
+    try {
+      this.singleton.jwt = '';
+      return of({ success: true });
+    } catch (error) {
+      throwError(error);
+    }
   }
 
 }

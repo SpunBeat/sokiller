@@ -10,7 +10,7 @@ export class SingletonService {
   public showSpin = false;
   public url = `${this.raw}api`;
   public uploads = `${this.raw}uploads`;
-  private _user: any;
+  private privateUser: any;
 
   _isLoggedIn: boolean;
   redirectUrl = '';
@@ -28,7 +28,7 @@ export class SingletonService {
 
   public set user(user: any) {
     localStorage.setItem('user', JSON.stringify(user));
-    this._user = user;
+    this.privateUser = user;
     if (user !== null) {
       this.isLoggedIn = true;
     } else {
@@ -37,12 +37,16 @@ export class SingletonService {
   }
 
   public get user(): any {
-    const user = JSON.parse(localStorage.getItem('user'));
-    if (user === null) {
+    try {
+      const user = JSON.parse(localStorage.getItem('user'));
+      if (user === null) {
+        return null;
+      } else {
+        this.privateUser = user;
+        return this.privateUser;
+      }
+    } catch (error) {
       return null;
-    } else {
-      this._user = user;
-      return this._user;
     }
   }
 

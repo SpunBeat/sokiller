@@ -2,51 +2,51 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { Action } from '@ngrx/store';
 import { Actions, ofType, createEffect } from '@ngrx/effects';
-import { mergeMap, map, catchError } from 'rxjs/operators';
+import { mergeMap, map, catchError, tap } from 'rxjs/operators';
 import { AppService } from 'app/app.service';
 import { UserInfo } from 'app/main/artists/models';
 import { HttpErrorResponse } from '@angular/common/http';
 import { MatSnackBar } from '@angular/material';
 import * as InfoApiActions from './info.actions';
+import { SingletonService } from 'app/singleton.service';
 
 @Injectable()
 export class InfoEffects {
 
+  singleton = SingletonService.getInstance();
+
   /**
-  * triggers when someone dispatchs a [LoadInfo]
+  * triggers when someone dispatchs a [login]
   */
-  loadInfo$: Observable<Action> = createEffect(() =>
+  login$: Observable<Action> = createEffect(() =>
     this.actions$.pipe(
-      ofType(InfoApiActions.LoadInfo),
-      mergeMap(() =>
-        this.app.get('').pipe(
+      ofType(InfoApiActions.Login),
+      mergeMap(({ payload }) =>
+        this.app.post('/admin/users/login', payload, { noAuth: true }).pipe(
+          tap((response: UserInfo) => {
+            this.singleton.jwt = response.token;
+            this.singleton.user = response.user;
+          }),
           map((response: UserInfo) =>
-            InfoApiActions.LoadInfoSuccess({ name: response.name })
+            InfoApiActions.LoginSuccess({ user: response.user })
           ),
           catchError((httpError: HttpErrorResponse) => {
             this.snackBar.open(`Can't Load Info from the API. Please verify your connection`, 'Ok', { duration: 3000 });
-            return of(InfoApiActions.LoadInfoFailure({ error: httpError.message }));
+            return of(InfoApiActions.LoginFailure({ errorMessage: httpError.message }));
           })
         )
       )
     )
   );
 
-  /**
-  * triggers when someone dispatchs a [UpdateInfo]
-  */
-  updateInfo$: Observable<Action> = createEffect(() =>
+  logout$: Observable<Action> = createEffect(() =>
     this.actions$.pipe(
-      ofType(InfoApiActions.UpdateInfo),
+      ofType(InfoApiActions.Logout),
       mergeMap(() =>
-        this.app.get('').pipe(
-          map((response: UserInfo) =>
-            InfoApiActions.UpdateInfoSuccess({ name: response.name })
+        this.app.logOut().pipe(
+          map(() =>
+            InfoApiActions.LogoutSuccess()
           ),
-          catchError((httpError: HttpErrorResponse) => {
-            this.snackBar.open(`Can't Update the Info from the API. Please verify your connection`, 'Ok', { duration: 3000 });
-            return of(InfoApiActions.UpdateInfoFailure({ error: httpError.message }));
-          })
         )
       )
     )

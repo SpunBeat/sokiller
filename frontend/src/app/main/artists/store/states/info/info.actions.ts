@@ -1,35 +1,33 @@
 import { createAction, props } from '@ngrx/store';
+import { User } from './info.reducer';
 
 /**
  * Loading Actions
  */
-export const LoadInfo = createAction(
-  '[Info/API] Load Info'
+export const Login = createAction(
+  '[Info/API] Login',
+  props<{ payload: any }>()
 );
 
-export const LoadInfoSuccess = createAction(
-  '[Info/API] Load Info Success',
-  props<{ name: string }>()
+export const LoginSuccess = createAction(
+  '[Info/API] Login Success',
+  props<{ user: User }>()
 );
 
-export const LoadInfoFailure = createAction(
-  '[Info/API] Load Info Failure',
-  props<{ error: any }>()
+export const LoginFailure = createAction(
+  '[Info/API] Login Failure',
+  props<{ errorMessage: string }>()
 );
 
-/**
- * Update Actions
- */
-export const UpdateInfo = createAction(
-  '[Info/API] Update Info'
+export const Logout = createAction(
+  '[Info/API] Logout'
 );
 
-export const UpdateInfoSuccess = createAction(
-  '[Info/API] Update Info Success',
-  props<{ name: string }>()
+export const LogoutSuccess = createAction(
+  '[Info/API] Logout Success'
 );
 
-export const UpdateInfoFailure = createAction(
-  '[Info/API] Update Info Failure',
-  props<{ error: any }>()
+export const LogoutFailure = createAction(
+  '[Info/API] Logout Failure'
 );
+

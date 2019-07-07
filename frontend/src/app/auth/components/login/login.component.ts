@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-
-import { FuseConfigService } from '@fuse/services/config.service';
-import { AppService } from 'app/app.service';
 import { Router } from '@angular/router';
+import { Store, select } from '@ngrx/store';
+import { Observable } from 'rxjs';
+
 import { SingletonService } from 'app/singleton.service';
+import { Login } from 'app/main/artists/store/states/info/info.actions';
+import { selectLoggedIn, selectErrorMessage } from 'app/main/artists/store';
 
 @Component({
   selector: 'login',
@@ -13,17 +15,23 @@ import { SingletonService } from 'app/singleton.service';
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
-  errorMessage: string;
+  errorMessage$: Observable<string>;
 
   singleton = SingletonService.getInstance();
 
   constructor(
     private fb: FormBuilder,
-    private app: AppService,
-    private router: Router
+    private router: Router,
+    private store: Store<any>
   ) { }
 
   ngOnInit(): void {
+    this.store.pipe( select(selectLoggedIn)).subscribe(loggedIn => {
+      if (loggedIn) {
+        this.router.navigate(['/artist/info']);
+      }
+    });
+    this.errorMessage$ = this.store.pipe(select(selectErrorMessage));
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required],
@@ -32,15 +40,6 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    this.app.post(`/admin/users/login`, this.loginForm.value, { noAuth: true })
-      .subscribe((response: { success: boolean, message?: string, token?: string, user?: any }) => {
-        if (!response.success) {
-          this.errorMessage = response.message;
-        } else {
-          this.singleton.jwt = response.token;
-          this.singleton.user = response.user;
-          this.router.navigate(['/artist/info']);
-        }
-      });
+    this.store.dispatch(Login({ payload: this.loginForm.value }));
   }
 }
