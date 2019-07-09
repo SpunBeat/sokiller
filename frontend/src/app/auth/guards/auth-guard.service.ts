@@ -19,6 +19,10 @@ export class AuthGuard implements CanLoad, CanActivate {
   constructor(public router: Router) {}
 
   canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
+    if (!this.singleton.isLoggedIn) {
+      this.router.navigate(['/']);
+      return false;
+    }
     return true;
   }
 

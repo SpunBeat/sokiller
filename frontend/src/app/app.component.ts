@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FuseSplashScreenService } from '@fuse/services/splash-screen.service';
 import { Router } from '@angular/router';
 import { Store, select } from '@ngrx/store';
-import { selectLoggedIn, LoginSuccess } from './main/artists/store';
+import { selectLoggedIn, LoadSession } from './main/artists/store';
 import { SingletonService } from './singleton.service';
 
 @Component({
@@ -20,12 +20,12 @@ export class AppComponent {
     private store: Store<any>
   ) {
 
+    const { user } = this.singleton;
+    this.store.dispatch(LoadSession({ user }));
+
     this.store.pipe(select(selectLoggedIn)).subscribe((loggedIn) => {
       if (!loggedIn) {
         this.router.navigate(['/']);
-      } else {
-        const { user } = this.singleton;
-        this.store.dispatch(LoginSuccess({ user }));
       }
     });
 

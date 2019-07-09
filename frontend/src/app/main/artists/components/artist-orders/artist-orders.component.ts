@@ -3,6 +3,8 @@ import { fuseAnimations } from '@fuse/animations';
 import { AppService } from 'app/app.service';
 import { uniqBy } from 'lodash';
 import { MatCheckboxChange } from '@angular/material/checkbox';
+import { Store, select } from '@ngrx/store';
+import { selectAllArtistOrders, selectArtistOrdersState } from 'app/store/artistOrders/artist-orders.selectors';
 
 @Component({
   selector: 'app-artist-orders',
@@ -26,9 +28,15 @@ export class ArtistOrdersComponent implements OnInit {
   iva = 0;
   subtotal = 0;
 
-  constructor(private app: AppService) { }
+  constructor(private app: AppService, private store: Store<any>) { }
 
   ngOnInit(): void {
+    this.store.pipe(select(selectAllArtistOrders)).subscribe(console.log);
+
+
+  }
+
+  load() {
     this.app.get('/orders/pending').subscribe((response: any) => {
       const orders = [...response.orders];
       const products = orders.map(order => ({
@@ -126,7 +134,6 @@ export class ArtistOrdersComponent implements OnInit {
         }
       });
     });
-
   }
 
 

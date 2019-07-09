@@ -4,6 +4,11 @@ import { User } from './info.reducer';
 /**
  * Loading Actions
  */
+export const LoadSession = createAction(
+  '[Info/API] Load Session',
+  props<{ user: User }>()
+);
+
 export const Login = createAction(
   '[Info/API] Login',
   props<{ payload: any }>()

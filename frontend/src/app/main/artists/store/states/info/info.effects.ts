@@ -39,6 +39,20 @@ export class InfoEffects {
     )
   );
 
+  loadSession$: Observable<Action> = createEffect(() =>
+    this.actions$.pipe(
+      ofType(InfoApiActions.LoadSession),
+      mergeMap(({ user }) => {
+        if (user) {
+          return of(InfoApiActions.LoginSuccess({ user }));
+        } else {
+          this.snackBar.open(`Can't Load Session. Please retry to Login`, 'Ok', { duration: 3000 });
+          return of(InfoApiActions.LoginFailure({ errorMessage: '' }));
+        }
+      })
+    )
+  );
+
   logout$: Observable<Action> = createEffect(() =>
     this.actions$.pipe(
       ofType(InfoApiActions.Logout),

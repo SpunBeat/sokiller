@@ -58,6 +58,8 @@ export class AppService {
   logOut() {
     try {
       this.singleton.jwt = '';
+      this.singleton.user = '';
+      this.singleton.isLoggedIn = false;
       return of({ success: true });
     } catch (error) {
       throwError(error);

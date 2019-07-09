@@ -12,6 +12,7 @@ import { ShirtImgComponent } from './components/shirt-img/shirt-img.component';
 import { ArtistService } from './artists.service';
 import { ProductsStoreModule } from './store/states/products/products-store.module';
 import { InfoStoreModule } from './store/states/info/info-store.module';
+import { ArtistOrdersStoreModule } from 'app/store/artistOrders';
 
 const routes = [
   {
@@ -48,7 +49,8 @@ const routes = [
     FuseSharedModule,
     // ngrx
     ProductsStoreModule,
-    InfoStoreModule
+    InfoStoreModule,
+    ArtistOrdersStoreModule
   ],
   exports: [],
   providers: [AppService, ArtistService],
