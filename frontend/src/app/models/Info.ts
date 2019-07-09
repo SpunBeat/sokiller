@@ -1,4 +1,4 @@
-import { User } from '../store/states/info/info.reducer';
+import { User } from 'app/store/info/info.state';
 
 export interface UserInfo {
   user: User;

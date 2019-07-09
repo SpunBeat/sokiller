@@ -11,7 +11,7 @@ import { navigation } from 'app/navigation/navigation';
 import { SingletonService } from 'app/singleton.service';
 import { AppService } from 'app/app.service';
 import { Store } from '@ngrx/store';
-import { Logout } from 'app/main/artists/store';
+import { Logout } from 'app/store';
 
 @Component({
   selector: 'toolbar',

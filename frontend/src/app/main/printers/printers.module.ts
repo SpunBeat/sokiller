@@ -6,7 +6,7 @@ import { PrintersComponent } from './printers.component';
 import { PrinterInfoComponent } from './components/printer-info/printer-info.component';
 import { PrinterOrdersComponent } from './components/printer-orders/printer-orders.component';
 import { PrinterBillsComponent } from './components/printer-bills/printer-bills.component';
-import { InfoStoreModule } from '../artists/store/states/info/info-store.module';
+import { InfoStoreModule } from '../../store/info/info-store.module';
 
 const routes = [
   {

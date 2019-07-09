@@ -1,26 +1,7 @@
 import { createReducer, on, Action } from '@ngrx/store';
 import * as InfoApiActions from './info.actions';
+import { initialState, InfoState } from './info.state';
 
-export interface User {
-  username: string;
-  sex: string;
-  lastName: string;
-  profileData: any;
-}
-
-export interface InfoState {
-  loading: boolean;
-  loggedIn: boolean;
-  hasError?: boolean;
-  user?: User;
-  errorMessage?: string;
-}
-
-const initialState: InfoState = {
-  loading: false,
-  loggedIn: false,
-  hasError: false,
-};
 
 const infoReducer = createReducer(
   initialState,
@@ -54,6 +35,3 @@ export function reducer(state: InfoState | undefined, action: Action) {
   return infoReducer(state, action);
 }
 
-export const getUser = (state: InfoState) => state.user;
-export const getLoggedIn = (state: InfoState) => state.loggedIn;
-export const getErrorMessage = (state: InfoState) => state.errorMessage;

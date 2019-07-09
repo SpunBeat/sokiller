@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { ProductRef } from 'app/main/artists/models';
+import { ProductRef } from 'app/models';
 
 /**
  * Loading Actions

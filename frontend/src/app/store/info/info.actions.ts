@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { User } from './info.reducer';
+import { User } from './info.state';
 
 /**
  * Loading Actions

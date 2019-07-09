@@ -21,7 +21,7 @@ import { AppService } from './app.service';
 import { appRoutes } from './app.routes';
 import { MainComponent } from './main/main.component';
 import { RootStoreModule } from './store/root-store.module';
-import { InfoStoreModule } from './main/artists/store/states/info/info-store.module';
+import { InfoStoreModule } from './store/info/info-store.module';
 
 @NgModule({
   declarations: [

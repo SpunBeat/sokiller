@@ -5,8 +5,8 @@ import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
 import { SingletonService } from 'app/singleton.service';
-import { Login } from 'app/main/artists/store/states/info/info.actions';
-import { selectLoggedIn, selectErrorMessage } from 'app/main/artists/store';
+import { Login } from 'app/store/info/info.actions';
+import { selectLoggedIn, selectErrorMessage } from 'app/store';
 
 @Component({
   selector: 'login',

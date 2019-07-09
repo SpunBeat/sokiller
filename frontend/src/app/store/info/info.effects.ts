@@ -4,7 +4,7 @@ import { Action } from '@ngrx/store';
 import { Actions, ofType, createEffect } from '@ngrx/effects';
 import { mergeMap, map, catchError, tap } from 'rxjs/operators';
 import { AppService } from 'app/app.service';
-import { UserInfo } from 'app/main/artists/models';
+import { UserInfo } from 'app/models';
 import { HttpErrorResponse } from '@angular/common/http';
 import { MatSnackBar } from '@angular/material';
 import * as InfoApiActions from './info.actions';

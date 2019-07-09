@@ -3,7 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { SingletonService } from 'app/singleton.service';
 import { Store } from '@ngrx/store';
-import { CreateProduct, UpdateProduct, DeleteProduct } from '../../store';
+import { CreateProduct, UpdateProduct, DeleteProduct } from '../../../../store';
 
 @Component({
   selector: 'app-product-form',

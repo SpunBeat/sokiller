@@ -3,7 +3,7 @@ import { fuseAnimations } from '@fuse/animations';
 import { MatDialog } from '@angular/material/dialog';
 import { Store, select } from '@ngrx/store';
 import { ProductFormComponent } from '../product-form/product-form.component';
-import { selectAllProducts, LoadProducts } from '../../store';
+import { selectAllProducts, LoadProducts } from '../../../../store';
 
 @Component({
   selector: 'app-artist-products',

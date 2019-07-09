@@ -1,14 +1,17 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-import * as fromProducts from './states/products/products.reducer';
-import * as fromInfo from './states/info/info.reducer';
-export * from './states/products/products.actions';
-export * from './states/info/info.actions';
+import * as fromProducts from './products/products.selectors';
+import { InfoState } from './info/info.state';
+import { ProductsState } from './products/products.state';
+
+import * as fromInfo from './info/info.selectors';
+export * from './products/products.actions';
+export * from './info/info.actions';
 
 /**
  * Selector for [products] Feature
  */
 const selectProductsState =
-  createFeatureSelector<fromProducts.ProductsState>('products');
+  createFeatureSelector<ProductsState>('products');
 
 /**
  * Select all products from [products] state
@@ -23,7 +26,7 @@ export const selectAllProducts = createSelector(
  * Selector for [login] Feature
  */
 const selectInfoState =
-  createFeatureSelector<fromInfo.InfoState>('info');
+  createFeatureSelector<InfoState>('info');
 
 export const selectUser = createSelector(
   selectInfoState,

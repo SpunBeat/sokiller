@@ -5,7 +5,7 @@ import { of } from 'rxjs';
 import { mergeMap, map, catchError } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material';
 import { AppService } from 'app/app.service';
-import { ProductRef } from 'app/main/artists/models';
+import { ProductRef } from 'app/models';
 import * as ProductsApiActions from './products.actions';
 
 @Injectable()

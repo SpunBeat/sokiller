@@ -4,7 +4,7 @@ import { SingletonService } from 'app/singleton.service';
 import { AppService } from 'app/app.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Store, select } from '@ngrx/store';
-import { selectUser } from '../../store';
+import { selectUser } from '../../../../store';
 
 @Component({
   selector: 'app-artist-info',

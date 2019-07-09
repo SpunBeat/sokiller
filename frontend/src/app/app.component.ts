@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FuseSplashScreenService } from '@fuse/services/splash-screen.service';
 import { Router } from '@angular/router';
 import { Store, select } from '@ngrx/store';
-import { selectLoggedIn, LoadSession } from './main/artists/store';
+import { selectLoggedIn, LoadSession } from './store';
 import { SingletonService } from './singleton.service';
 
 @Component({

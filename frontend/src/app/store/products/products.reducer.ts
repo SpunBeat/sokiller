@@ -1,21 +1,8 @@
 import { Action, createReducer, on } from '@ngrx/store';
-import { EntityState, EntityAdapter, createEntityAdapter, Update } from '@ngrx/entity';
-import { ProductRef } from 'app/main/artists/models/Product';
+import { Update } from '@ngrx/entity';
+import { ProductRef } from 'app/models/Product';
 import * as ProductsApiActions from './products.actions';
-
-export interface ProductsState extends EntityState<ProductRef> {
-  loading: boolean;
-  loaded: boolean;
-}
-
-const adapter: EntityAdapter<ProductRef> =
-  createEntityAdapter<ProductRef>();
-
-const initialState: ProductsState =
-  adapter.getInitialState({
-    loading: false,
-    loaded: false
-  });
+import { initialState, adapter, ProductsState } from './products.state';
 
 const productReducer = createReducer(
   initialState,
@@ -77,6 +64,3 @@ const productReducer = createReducer(
 export function reducer(state: ProductsState | undefined, action: Action) {
   return productReducer(state, action);
 }
-
-const { selectAll } = adapter.getSelectors();
-export const selectAllProducts = selectAll;
