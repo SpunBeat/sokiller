@@ -56,6 +56,8 @@ require('./api/models/users/users.routes')(app)
 require('./api/services/Passport')()
 
 require('./api/models/Image')(app)
+require('./api/models/Xml')(app)
+
 
 // 4. API
 const { Product, Order, Payment } = require('./api/models')
