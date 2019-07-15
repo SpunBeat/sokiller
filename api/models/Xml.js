@@ -7,7 +7,7 @@ const multer = Multer({
   limits: { fileSize: 5 * 1024 * 1024 }
 })
 const CLOUD_BUCKET = 'sokiller-bucket'
-const storage = new Storage({ keyFilename: './key.json', projectId: 'fierro-viejo', })
+const storage = new Storage({ keyFilename: './key.json', projectId: 'fierro-viejo' })
 const bucket = storage.bucket(CLOUD_BUCKET)
 
 const getPublicUrl = CLOUD_BUCKET => filename => {
@@ -16,7 +16,10 @@ const getPublicUrl = CLOUD_BUCKET => filename => {
 const getPublicFromBucket = getPublicUrl(CLOUD_BUCKET)
 
 const getName = filename => {
-  let str = filename.split('.').slice(0, -1).join('.')
+  let str = filename
+    .split('.')
+    .slice(0, -1)
+    .join('.')
   const extension = filename.substr(filename.lastIndexOf('.') + 1)
   str = str.replace(/\W+(?!$)/g, '-').toLowerCase()
   str = str.replace(/\W$/, '').toLowerCase()
@@ -37,7 +40,7 @@ const asyncParse = async xml => {
 
 const gcloudManage = async (req, res) => {
   if (!req.file) {
-    res.status(200).json({ message: 'no files' });
+    res.status(200).json({ message: 'no files' })
   }
   const { gcsname } = getName(req.file.originalname)
   const file = bucket.file(gcsname)
@@ -46,7 +49,7 @@ const gcloudManage = async (req, res) => {
     metadata: { contentType: req.file.mimetype }
   })
 
-  stream.on('error', (err) => {
+  stream.on('error', err => {
     req.file.cloudStorageError = err
     res.status(400).json({ err })
   })
@@ -59,7 +62,7 @@ const gcloudManage = async (req, res) => {
       let buf = ''
       archivo
         .on('data', d => {
-          buf += d;
+          buf += d
         })
         .on('end', async () => {
           const response = await asyncParse(buf)
@@ -74,8 +77,16 @@ const gcloudManage = async (req, res) => {
   stream.end(req.file.buffer)
 }
 
-
-
 module.exports = app => {
   app.route('/api/admin/xml/upload').post(multer.single('file'), gcloudManage)
+  app.route('/api/admin/xml').post(async (req, res) => {
+    console.log(req.body)
+    // try {
+    //   const response = await asyncParse(req.rawBody)
+    //   const Comprobante = response['cfdi:Comprobante']
+    //   res.status(200).json({ success: true, Comprobante })
+    // } catch (error) {
+    //   res.status(400).json({ success: false, error })
+    // }
+  })
 }

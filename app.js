@@ -7,6 +7,8 @@ const bodyParser = require('body-parser')
 const connection = 'mongodb://lugash-user:02f64ef10f@ds131312.mlab.com:31312/lugash'
 const path = require('path')
 
+require('body-parser-xml')(bodyParser)
+
 // 1. Mongoose Configuration
 mongoose.Promise = bluebird
 bluebird.promisifyAll(mongoose)
@@ -26,6 +28,7 @@ const app = express()
 app.use(morgan('dev'))
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json({ limit: '50mb' }))
+app.use(bodyParser.xml())
 
 // a) cors options
 app.use((req, res, next) => {
@@ -58,7 +61,6 @@ require('./api/services/Passport')()
 require('./api/models/Image')(app)
 require('./api/models/Xml')(app)
 
-
 // 4. API
 const { Product, Order, Payment } = require('./api/models')
 Product.init(app)
@@ -68,10 +70,7 @@ Payment.init(app)
 // 5. Routes
 app.use('/', express.static('public'))
 
-const angularRoutes = [
-  { path: '/artist/:id' },
-  { path: '/printer/:id' }
-]
+const angularRoutes = [{ path: '/artist/:id' }, { path: '/printer/:id' }]
 
 app.route(angularRoutes.map(route => route.path)).get(function(req, res) {
   res.sendFile(path.resolve('public/index.html'))
