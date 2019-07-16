@@ -49,9 +49,16 @@ export class ProductFormComponent implements OnInit {
       earning: [this.data.earning ? this.data.earning : '', Validators.required]
     });
     if (this.data.images) {
+      // ** Important to generate an independient Input
       this.images = {
-        ...this.images,
-        ...this.data.images
+        back: {
+          customSrc: this.data.images.back.customSrc,
+          file: this.data.images.back.file
+        },
+        front: {
+          customSrc: this.data.images.front.customSrc,
+          file: this.data.images.front.file
+        },
       };
     }
     if (this.data.iva) {
@@ -72,25 +79,27 @@ export class ProductFormComponent implements OnInit {
   }
 
   onFileChange(file: any) {
-    const formData = new FormData();
-    formData.append('file', file.obj.file);
-    fetch(`${this.singleton.url}/admin/products/upload`, {
-      method: 'POST',
-      body: formData
-    })
-      .then(response => response.json())
-      .then((response: any) => {
-        this.images[file.name] = {
-          ...file.obj,
-          customSrc: response.customSrc,
-          file: {
-            lastModified: file.obj.file.lastModified,
-            name: file.obj.file.name,
-            size: file.obj.file.size,
-            type: file.obj.file.type,
-          }
-        };
-      });
+    if (file.obj.file) {
+      const formData = new FormData();
+      formData.append('file', file.obj.file);
+      fetch(`${this.singleton.url}/admin/products/upload`, {
+        method: 'POST',
+        body: formData
+      })
+        .then(response => response.json())
+        .then((response: any) => {
+          this.images[file.name] = {
+            ...file.obj,
+            customSrc: response.customSrc,
+            file: {
+              lastModified: file.obj.file.lastModified,
+              name: file.obj.file.name,
+              size: file.obj.file.size,
+              type: file.obj.file.type,
+            }
+          };
+        });
+    }
   }
 
   save() {

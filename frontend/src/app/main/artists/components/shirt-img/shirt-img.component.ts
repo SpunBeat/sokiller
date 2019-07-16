@@ -42,8 +42,7 @@ export class ShirtImgComponent implements OnInit {
   }
 
   removeImage(obj: any) {
-    console.log(obj);
-    // obj.file = undefined;
-    // obj.customSrc = undefined;
+    obj.file = undefined;
+    obj.customSrc = undefined;
    }
 }
