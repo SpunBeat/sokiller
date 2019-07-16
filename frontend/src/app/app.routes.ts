@@ -8,10 +8,6 @@ export const appRoutes: Routes = [
     loadChildren: () => import('./auth/components/login/login.module').then(m => m.LoginModule)
   },
   {
-    path: 'registro',
-    loadChildren: () => import('./auth/components/register/register.module').then(m => m.RegisterModule)
-  },
-  {
     path: '',
     component: MainComponent,
     children: [

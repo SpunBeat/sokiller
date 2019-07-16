@@ -52,12 +52,12 @@ export class ProductFormComponent implements OnInit {
       // ** Important to generate an independient Input
       this.images = {
         back: {
-          customSrc: this.data.images.back.customSrc,
-          file: this.data.images.back.file
+          customSrc: this.data.images && this.data.images.back ? this.data.images.back.customSrc : '',
+          file: this.data.images && this.data.images.back ? this.data.images.back.file : ''
         },
         front: {
-          customSrc: this.data.images.front.customSrc,
-          file: this.data.images.front.file
+          customSrc: this.data.images && this.data.images.front ? this.data.images.front.customSrc : '',
+          file: this.data.images && this.data.images.front ? this.data.images.front.file : ''
         },
       };
     }
