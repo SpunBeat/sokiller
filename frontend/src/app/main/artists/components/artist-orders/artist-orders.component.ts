@@ -58,7 +58,6 @@ export class ArtistOrdersComponent implements OnInit {
         };
       });
       this.dataSource = productsReady;
-      console.log(productsReady);
     });
 
     this.app.get('/orders/paidOut').subscribe((response: any) => {

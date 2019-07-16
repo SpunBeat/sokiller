@@ -70,7 +70,6 @@ export class MulticheckboxComponent implements OnInit, ControlValueAccessor {
     if (!removed) {
       byweekday.insert(day.value, this.fb.control(weekday));
     }
-    console.log(byweekday.value);
     this.onChange({
       byweekday: byweekday.value,
       freq: 2,

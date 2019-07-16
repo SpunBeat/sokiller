@@ -32,10 +32,12 @@ export class ArtistInfoComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.store.pipe(select(selectUser)).subscribe(user => {
-      this.user = user;
-      this.initFormGroup(this.user);
-    });
+    // this.store.subscribe(console.log);
+    // this.store.pipe(select(selectUser)).subscribe(user => {
+    //   console.log(user);
+    //   this.user = user;
+    //   this.initFormGroup(this.user);
+    // });
   }
 
   initFormGroup(user: any): void {

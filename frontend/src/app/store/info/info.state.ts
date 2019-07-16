@@ -8,13 +8,15 @@ export interface User {
 export interface InfoState {
   loading: boolean;
   loggedIn: boolean;
-  hasError?: boolean;
-  user?: User;
-  errorMessage?: string;
+  hasError: boolean;
+  user: User;
+  errorMessage: string;
 }
 
 export const initialState: InfoState = {
   loading: false,
   loggedIn: false,
   hasError: false,
+  user: <User>{},
+  errorMessage: ''
 };

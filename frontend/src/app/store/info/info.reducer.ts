@@ -1,6 +1,6 @@
 import { createReducer, on, Action } from '@ngrx/store';
 import * as InfoApiActions from './info.actions';
-import { initialState, InfoState } from './info.state';
+import { initialState, InfoState, User } from './info.state';
 
 
 const infoReducer = createReducer(
@@ -11,7 +11,9 @@ const infoReducer = createReducer(
   ),
   on(
     InfoApiActions.LoginSuccess,
-    (state, { user }) => ({ ...state, loading: false, loggedIn: true, hasError: false, user: user })
+    (state, { user }) => {
+      return { ...state, loading: false, loggedIn: true, hasError: false, user };
+    }
   ),
   on(
     InfoApiActions.LoginFailure,
@@ -23,7 +25,7 @@ const infoReducer = createReducer(
   ),
   on(
     InfoApiActions.LogoutSuccess,
-    state => ({ ...state, loading: false, loggedIn: false, hasError: false })
+    state => ({ ...state, loading: false, loggedIn: false, hasError: false, user: <User>{} })
   ),
   on(
     InfoApiActions.LogoutFailure,

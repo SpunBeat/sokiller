@@ -11,7 +11,7 @@ import * as fromArtistOrders from './artist-orders.reducer';
   imports: [
     CommonModule,
     StoreModule.forFeature('artistOrders', fromArtistOrders.reducer),
-    EffectsModule.forRoot([ArtistOrdersEffects])
+    EffectsModule.forFeature([ArtistOrdersEffects])
   ]
 })
 export class ArtistOrdersStoreModule { }

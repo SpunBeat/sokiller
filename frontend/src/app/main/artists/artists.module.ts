@@ -10,9 +10,6 @@ import { ArtistInfoComponent } from './components/artist-info/artist-info.compon
 import { ProductFormComponent } from './components/product-form/product-form.component';
 import { ShirtImgComponent } from './components/shirt-img/shirt-img.component';
 import { ArtistService } from './artists.service';
-import { ProductsStoreModule } from '../../store/products/products-store.module';
-import { InfoStoreModule } from '../../store/info/info-store.module';
-import { ArtistOrdersStoreModule } from 'app/store/artistOrders';
 
 const routes = [
   {
@@ -47,10 +44,6 @@ const routes = [
   imports: [
     RouterModule.forChild(routes),
     FuseSharedModule,
-    // ngrx
-    ProductsStoreModule,
-    InfoStoreModule,
-    ArtistOrdersStoreModule
   ],
   exports: [],
   providers: [AppService, ArtistService],

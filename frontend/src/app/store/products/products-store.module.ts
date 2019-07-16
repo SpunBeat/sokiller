@@ -11,7 +11,7 @@ import * as fromProducts from './products.reducer';
   imports: [
     CommonModule,
     StoreModule.forFeature('products', fromProducts.reducer),
-    EffectsModule.forRoot([ProductsEffects])
+    EffectsModule.forFeature([ProductsEffects])
   ]
 })
 export class ProductsStoreModule { }

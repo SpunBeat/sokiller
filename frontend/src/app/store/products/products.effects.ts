@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Actions, ofType, createEffect } from '@ngrx/effects';
 import { of } from 'rxjs';
-import { mergeMap, map, catchError } from 'rxjs/operators';
+import { mergeMap, map, catchError, tap } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material';
 import { AppService } from 'app/app.service';
 import { ProductRef } from 'app/models';
@@ -36,8 +36,11 @@ export class ProductsEffects {
   createProduct$ = createEffect(() =>
     this.actions$.pipe(
       ofType(ProductsApiActions.CreateProduct),
-      mergeMap(({ payload }) =>
-        this.app.post(`/admin/products`, payload).pipe(
+      mergeMap(({ payload }) => {
+        return this.app.post(`/products`, payload).pipe(
+          tap(response => {
+            console.log(response);
+          }),
           map((response: { product: ProductRef }) =>
             ProductsApiActions.CreateProductSuccess({ product: response.product })
           ),
@@ -45,7 +48,8 @@ export class ProductsEffects {
             this.snackBar.open(`Can't load the API. Please verify your connection`, 'Ok', { duration: 3000 });
             return of(ProductsApiActions.CreateProductFailure({ error: httpError.message }));
           })
-        )
+        );
+      }
       )
     )
   );

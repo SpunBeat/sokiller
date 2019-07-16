@@ -11,7 +11,7 @@ import * as fromInfo from './info.reducer';
   imports: [
     CommonModule,
     StoreModule.forFeature('info', fromInfo.reducer),
-    EffectsModule.forRoot([InfoEffects])
+    EffectsModule.forFeature([InfoEffects])
   ]
 })
 export class InfoStoreModule { }
